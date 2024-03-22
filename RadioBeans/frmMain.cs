@@ -67,36 +67,12 @@ namespace RadioBeans
 
 		private void btnChooseFolder_Click(object sender, EventArgs e)
 		{
+			Album album = new Album();
 			DialogResult result = fbd.ShowDialog();
 			if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
 			{
 				clipLibrary = Directory.GetFiles(fbd.SelectedPath);
-				foreach (string clip in clipLibrary)
-				{
-					if (clip.EndsWith(".mp3"))
-					{
-						cmbSongList.Items.Add(clip);
-					}
-					if (clip.EndsWith("Cover.png") || clip.EndsWith("cover.png"))
-					{
-						coverImage = Image.FromFile(clip);
-						foundCover = true;
-						//currentImage = true;
-						pbxCover.Image = coverImage;
-					}
-					if (clip.EndsWith("Tracklist.png"))
-					{
-						tracklistImage = Image.FromFile(clip);
-						foundTracklist = true;
-					}
-
-					// part of swapping current image
-					/*else
-					{
-						foundCover = false;
-						currentImage = false;
-					}*/
-				}
+				album.InitializeAlbum(clipLibrary, cmbSongList, pbxCover);
 
 				System.Windows.Forms.MessageBox.Show("Files found: " + clipLibrary.Length.ToString() + '\n' + "Cover found: " + foundCover.ToString());
 			}
