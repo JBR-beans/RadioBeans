@@ -13,17 +13,15 @@ namespace RadioBeans
 	{
 		private WaveOutEvent outputDevice;
 		private AudioFileReader audioFile;
+
 		private OpenFileDialog audioLibrary = new OpenFileDialog();
 		private FolderBrowserDialog fbd = new FolderBrowserDialog();
 		private string[] clipLibrary;
-
-		
-		private bool isPlaying;
-
-		// true if cover, false if songlist
-		// private bool currentImage;
 		private Image coverImage;
 		private Image tracklistImage;
+
+		private bool isPlaying;
+
 		private bool foundCover = false;
 		private bool foundTracklist = false;
 
@@ -38,13 +36,13 @@ namespace RadioBeans
 			tbrVolume.Maximum = 100;
 			tbrVolume.Value = 10;
 			pbxCover.SizeMode = PictureBoxSizeMode.Zoom;
+			tmr1Second.Tick += tmr1Second_Tick;
 			tmr1Second.Interval = 1000; // 1 sec
 
 			if (outputDevice == null)
 			{
 				outputDevice = new WaveOutEvent();
 			}
-			//outputDevice.Volume = tbrVolume.Value;
 		}
 
 		private void btnClearList_Click(object sender, EventArgs e)
@@ -56,13 +54,11 @@ namespace RadioBeans
 			
 			StartPlaying();
 			isPlaying = true;
-			label2.Text = "true";
 		}
 		private void btnStop_Click(object sender, EventArgs e)
 		{
 			StopPlaying();
 			isPlaying = false;
-			label2.Text = "false";
 		}
 
 		private void btnChooseFolder_Click(object sender, EventArgs e)
@@ -78,16 +74,9 @@ namespace RadioBeans
 			}
 		}
 
-		private void label1_Click(object sender, EventArgs e)
-		{
-		}
-
-		private void tmr1Second_Tick(object sender, EventArgs e)
-		{
-			
-		}
 		private void StartPlaying()
 		{
+			
 			if (outputDevice == null)
 			{
 				outputDevice = new WaveOutEvent();
@@ -99,9 +88,16 @@ namespace RadioBeans
 				tbrSeek.Maximum = System.Convert.ToInt32(audioFile.Length);
 			}
 			outputDevice.Play();
+			
 			tmr1Second.Start();
+			
 
+		}
 
+		private void tmr1Second_Tick(object sender, EventArgs e)
+		{
+			tbrSeek.Value = System.Convert.ToInt32(audioFile.Position-1);
+			lblDebug1.Text = tbrSeek.Value.ToString();
 		}
 		private void StopPlaying()
 		{
@@ -116,24 +112,6 @@ namespace RadioBeans
 			}
 			
 		}
-
-		// trying to click the image to swap between songlist and cover image for fun
-		/*private void pbxCover_Click(object sender, EventArgs e)
-		{
-			foreach (string clip in clipLibrary)
-			{
-				if (clip.EndsWith("songlist.png") && currentImage == true)
-				{
-					pbxCover.Image = Image.FromFile(clip);
-					currentImage = false;
-				}
-				if (clip.EndsWith("cover.png") && currentImage == true)
-				{
-					pbxCover.Image = Image.FromFile(clip);
-					currentImage = true;
-				}
-			}
-		}*/
 		private void waveViewer1_Load(object sender, EventArgs e)
 		{
 
@@ -160,7 +138,6 @@ namespace RadioBeans
 			{
 				outputDevice.Volume = tbrVolume.Value * .01f;
 			}
-			
 		}
 
 		private void tbrSeek_Scroll(object sender, EventArgs e)
@@ -170,7 +147,5 @@ namespace RadioBeans
 				audioFile.Position = tbrSeek.Value;
 			}
 		}
-
-		
 	}
 }
