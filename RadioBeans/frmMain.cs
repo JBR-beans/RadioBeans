@@ -25,6 +25,8 @@ namespace RadioBeans
 		private bool foundCover = false;
 		private bool foundTracklist = false;
 
+		private int pausedPosition;
+
 		public frmMain()
 		{
 			InitializeComponent();
@@ -42,6 +44,7 @@ namespace RadioBeans
 			if (outputDevice == null)
 			{
 				outputDevice = new WaveOutEvent();
+				outputDevice.Volume = tbrVolume.Value * .01f;
 			}
 		}
 
@@ -51,14 +54,12 @@ namespace RadioBeans
 		}
 		private void btnPlay_Click(object sender, EventArgs e)
 		{
-			
+
 			StartPlaying();
-			isPlaying = true;
 		}
 		private void btnStop_Click(object sender, EventArgs e)
 		{
 			StopPlaying();
-			isPlaying = false;
 		}
 
 		private void btnChooseFolder_Click(object sender, EventArgs e)
@@ -76,7 +77,7 @@ namespace RadioBeans
 
 		private void StartPlaying()
 		{
-			
+
 			if (outputDevice == null)
 			{
 				outputDevice = new WaveOutEvent();
@@ -88,16 +89,26 @@ namespace RadioBeans
 				tbrSeek.Maximum = System.Convert.ToInt32(audioFile.Length);
 			}
 			outputDevice.Play();
-			
 			tmr1Second.Start();
-			
-
+			isPlaying = true;
 		}
 
 		private void tmr1Second_Tick(object sender, EventArgs e)
 		{
-			tbrSeek.Value = System.Convert.ToInt32(audioFile.Position-1);
-			lblDebug1.Text = tbrSeek.Value.ToString();
+			if (isPlaying == true)
+			{
+				tbrSeek.Value = System.Convert.ToInt32(audioFile.Position - 1);
+				if (audioFile.Position == audioFile.Length - 1)
+				{
+					SongEnd();
+				}
+				lblDebug1.Text = tbrSeek.Value.ToString();
+			}
+		}
+
+		public void SongEnd()
+		{
+			isPlaying = false;
 		}
 		private void StopPlaying()
 		{
@@ -109,19 +120,10 @@ namespace RadioBeans
 				outputDevice = null;
 				audioFile.Dispose();
 				audioFile = null;
+				isPlaying = false;
+				tbrSeek.Value = 0;
 			}
-			
 		}
-		private void waveViewer1_Load(object sender, EventArgs e)
-		{
-
-		}
-
-		private void volVolume_Load(object sender, EventArgs e)
-		{
-
-		}
-
 		private void cmbSongList_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (isPlaying == true)
@@ -129,22 +131,21 @@ namespace RadioBeans
 				StopPlaying();
 				StartPlaying();
 			}
+		}
+		private void tbrSeek_Scroll(object sender, EventArgs e)
+		{
 			
+			if (audioFile != null)
+			{
+				audioFile.Position = tbrSeek.Value;
+			}
 		}
 
 		private void tbrVolume_Scroll(object sender, EventArgs e)
 		{
-			if (outputDevice != null)
+			if (audioFile != null)
 			{
-				outputDevice.Volume = tbrVolume.Value * .01f;
-			}
-		}
-
-		private void tbrSeek_Scroll(object sender, EventArgs e)
-		{
-		 if (audioFile != null)
-			{
-				audioFile.Position = tbrSeek.Value;
+				outputDevice.Volume = tbrVolume.Value*.01f;
 			}
 		}
 	}

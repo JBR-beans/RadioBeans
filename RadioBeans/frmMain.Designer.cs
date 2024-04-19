@@ -121,12 +121,11 @@
 			// tbrSeek
 			// 
 			tbrSeek.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			tbrSeek.LargeChange = 0;
+			tbrSeek.LargeChange = 1;
 			tbrSeek.Location = new Point(12, 492);
 			tbrSeek.Name = "tbrSeek";
 			tbrSeek.Size = new Size(477, 45);
 			tbrSeek.TabIndex = 12;
-			tbrSeek.Scroll += tbrSeek_Scroll;
 			// 
 			// lblDebug1
 			// 
