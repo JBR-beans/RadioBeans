@@ -7,12 +7,16 @@ using NAudio.Wave.SampleProviders;
 using System.Windows.Forms.VisualStyles;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.IO;
+using System.Security.Policy;
+using static System.Net.WebRequestMethods;
 
 namespace RadioBeans
 {
 
 	public partial class frmMain : Form
 	{
+		private MediaFoundationReader mediaReader;
+		private WasapiOut wasapiOut;
 		private WaveOutEvent outputDevice;
 		private AudioFileReader audioFile;
 
@@ -26,7 +30,6 @@ namespace RadioBeans
 
 		private bool foundCover = false;
 		private bool foundTracklist = false;
-
 
 		public frmMain()
 		{
@@ -47,15 +50,12 @@ namespace RadioBeans
 				outputDevice.Volume = tbrVolume.Value * .01f;
 			}
 		}
-
-
 		private void btnClearList_Click(object sender, EventArgs e)
 		{
 			cmbSongList.Items.Clear();
 		}
 		private void btnPlay_Click(object sender, EventArgs e)
 		{
-
 			StartPlaying();
 		}
 		private void btnStop_Click(object sender, EventArgs e)
@@ -90,26 +90,33 @@ namespace RadioBeans
 			{
 				audioFile = new AudioFileReader(cmbSongList.SelectedItem.ToString());
 				outputDevice.Init(audioFile);
-				tbrSeek.Maximum = System.Convert.ToInt32(audioFile.Length);
+				tbrSeek.Maximum = System.Convert.ToInt32(audioFile.Length) + 1;
 			}
 			outputDevice.Play();
 			tmr1Second.Start();
 			isPlaying = true;
+			lblIsPlaying.Text = isPlaying.ToString();
 		}
 		private void tmr1Second_Tick(object sender, EventArgs e)
 		{
 			if (isPlaying == true)
 			{
-				tbrSeek.Value = System.Convert.ToInt32(audioFile.Position - 1);
+				if (audioFile.Position < audioFile.Length)
+				{
+					tbrSeek.Value = System.Convert.ToInt32(audioFile.Position);
+				}
 				if (audioFile.Position == audioFile.Length - 1)
 				{
 					SongEnd();
 				}
 			}
+			lblAudioFilePosition.Text = audioFile.Position.ToString();
+			lblSeekPosition.Text = tbrSeek.Value.ToString();
 		}
 		public void SongEnd()
 		{
 			isPlaying = false;
+			lblIsPlaying.Text = isPlaying.ToString();
 		}
 		private void StopPlaying()
 		{
@@ -123,6 +130,7 @@ namespace RadioBeans
 				audioFile = null;
 				isPlaying = false;
 				tbrSeek.Value = 0;
+				lblIsPlaying.Text = isPlaying.ToString();
 			}
 		}
 		private void PausePlaying()
@@ -132,6 +140,7 @@ namespace RadioBeans
 				tmr1Second.Stop();
 				outputDevice?.Stop();
 				isPlaying = false;
+				lblIsPlaying.Text = isPlaying.ToString();
 			}
 		}
 		private void cmbSongList_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,9 +155,17 @@ namespace RadioBeans
 		{
 			if (audioFile != null)
 			{
-				lblDebug1.Text = audioFile.Position.ToString() + " " + tbrSeek.Value.ToString();
-				audioFile.Position = tbrSeek.Value;
+				if (audioFile.Position < audioFile.Length)
+				{
+					audioFile.Position = tbrSeek.Value;
+				}
+				if (audioFile.Position >= audioFile.Length)
+				{
+					audioFile.Position = audioFile.Length - 1;
+				}
 			}
+			lblAudioFilePosition.Text = audioFile.Position.ToString();
+			lblSeekPosition.Text = tbrSeek.Value.ToString();
 		}
 
 		private void tbrVolume_Scroll(object sender, EventArgs e)
@@ -165,6 +182,73 @@ namespace RadioBeans
 			{
 				audioFile.Position -= 500000;
 				tbrSeek.Value = Convert.ToInt32(audioFile.Position);
+			}
+		}
+
+		private void btnSkipForward_Click(object sender, EventArgs e)
+		{
+
+			if (audioFile.Position > audioFile.Length - 1000000)
+			{
+				audioFile.Position = audioFile.Length - 1;
+			}
+			if (audioFile.Position < audioFile.Length - 1000000)
+			{
+				audioFile.Position += 1000000;
+			}
+			tbrSeek.Value = Convert.ToInt32(audioFile.Position);
+			lblAudioFilePosition.Text = audioFile.Position.ToString();
+			lblSeekPosition.Text = tbrSeek.Value.ToString();
+		}
+
+		private void btnSkipBack_Click(object sender, EventArgs e)
+		{
+			if (isPlaying == true)
+			{
+				if (audioFile.Position > 1000000)
+				{
+					audioFile.Position -= 1000000;
+				}
+				if (audioFile.Position < 1000000)
+				{
+					audioFile.Position = 0;
+				}
+				tbrSeek.Value = Convert.ToInt32(audioFile.Position);
+			}
+			lblAudioFilePosition.Text = audioFile.Position.ToString();
+			lblSeekPosition.Text = tbrSeek.Value.ToString();
+		}
+
+		private void btnLoadURL_Click(object sender, EventArgs e)
+		{
+			var url = "http://media.ch9.ms/ch9/2876/fd36ef30-cfd2-4558-8412-3cf7a0852876/AzureWebJobs103.mp3";
+			if (mediaReader == null)
+			{
+				mediaReader = new MediaFoundationReader(url);
+			}
+            if (mediaReader != null)
+			{
+				mediaReader.Dispose();
+				mediaReader = new MediaFoundationReader(url);
+			}
+
+			if (wasapiOut == null)
+			{
+				wasapiOut = new WasapiOut();
+			}
+			if (wasapiOut != null)
+			{
+				wasapiOut.Dispose();
+				wasapiOut = new WasapiOut();
+			}
+			if (wasapiOut != null && mediaReader != null)
+			{
+				wasapiOut.Init(mediaReader);
+				wasapiOut.Play();
+				/*while (wasapiOut.PlaybackState == PlaybackState.Playing)
+				{
+					Thread.Sleep(1000);
+				}*/
 			}
 		}
 	}
