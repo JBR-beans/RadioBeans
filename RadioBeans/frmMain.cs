@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System.Windows.Forms.VisualStyles;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.IO;
 
 namespace RadioBeans
 {
@@ -25,7 +27,6 @@ namespace RadioBeans
 		private bool foundCover = false;
 		private bool foundTracklist = false;
 
-		private int pausedPosition;
 
 		public frmMain()
 		{
@@ -34,7 +35,6 @@ namespace RadioBeans
 		}
 		public void FormLoad()
 		{
-
 			tbrVolume.Maximum = 100;
 			tbrVolume.Value = 10;
 			pbxCover.SizeMode = PictureBoxSizeMode.Zoom;
@@ -48,6 +48,7 @@ namespace RadioBeans
 			}
 		}
 
+
 		private void btnClearList_Click(object sender, EventArgs e)
 		{
 			cmbSongList.Items.Clear();
@@ -60,6 +61,10 @@ namespace RadioBeans
 		private void btnStop_Click(object sender, EventArgs e)
 		{
 			StopPlaying();
+		}
+		private void btnPause_Click(object sender, EventArgs e)
+		{
+			PausePlaying();
 		}
 
 		private void btnChooseFolder_Click(object sender, EventArgs e)
@@ -77,7 +82,6 @@ namespace RadioBeans
 
 		private void StartPlaying()
 		{
-
 			if (outputDevice == null)
 			{
 				outputDevice = new WaveOutEvent();
@@ -92,7 +96,6 @@ namespace RadioBeans
 			tmr1Second.Start();
 			isPlaying = true;
 		}
-
 		private void tmr1Second_Tick(object sender, EventArgs e)
 		{
 			if (isPlaying == true)
@@ -102,10 +105,8 @@ namespace RadioBeans
 				{
 					SongEnd();
 				}
-				lblDebug1.Text = tbrSeek.Value.ToString();
 			}
 		}
-
 		public void SongEnd()
 		{
 			isPlaying = false;
@@ -124,6 +125,15 @@ namespace RadioBeans
 				tbrSeek.Value = 0;
 			}
 		}
+		private void PausePlaying()
+		{
+			if (outputDevice != null)
+			{
+				tmr1Second.Stop();
+				outputDevice?.Stop();
+				isPlaying = false;
+			}
+		}
 		private void cmbSongList_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (isPlaying == true)
@@ -134,9 +144,9 @@ namespace RadioBeans
 		}
 		private void tbrSeek_Scroll(object sender, EventArgs e)
 		{
-			
 			if (audioFile != null)
 			{
+				lblDebug1.Text = audioFile.Position.ToString() + " " + tbrSeek.Value.ToString();
 				audioFile.Position = tbrSeek.Value;
 			}
 		}
@@ -145,7 +155,16 @@ namespace RadioBeans
 		{
 			if (audioFile != null)
 			{
-				outputDevice.Volume = tbrVolume.Value*.01f;
+				outputDevice.Volume = tbrVolume.Value * .01f;
+			}
+		}
+
+		private void btnTest_Click(object sender, EventArgs e)
+		{
+			if (audioFile != null)
+			{
+				audioFile.Position -= 500000;
+				tbrSeek.Value = Convert.ToInt32(audioFile.Position);
 			}
 		}
 	}
