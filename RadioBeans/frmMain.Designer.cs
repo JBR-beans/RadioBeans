@@ -38,16 +38,11 @@
 			pbxCover = new PictureBox();
 			tbrVolume = new TrackBar();
 			tbrSeek = new TrackBar();
-			lblDebug1 = new Label();
 			btnPause = new Button();
-			btnTest = new Button();
 			btnSkipForward = new Button();
 			btnSkipBack = new Button();
-			lblAudioFilePosition = new Label();
-			lblSeekPosition = new Label();
-			lblIsPlaying = new Label();
-			txbURL = new TextBox();
-			btnLoadURL = new Button();
+			btnNextTrack = new Button();
+			btnPreviousTrack = new Button();
 			((System.ComponentModel.ISupportInitialize)pbxCover).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrVolume).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrSeek).BeginInit();
@@ -55,10 +50,10 @@
 			// 
 			// btnPlay
 			// 
-			btnPlay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btnPlay.Location = new Point(353, 405);
+			btnPlay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnPlay.Location = new Point(174, 446);
 			btnPlay.Name = "btnPlay";
-			btnPlay.Size = new Size(75, 23);
+			btnPlay.Size = new Size(100, 30);
 			btnPlay.TabIndex = 0;
 			btnPlay.Text = "Play";
 			btnPlay.UseVisualStyleBackColor = true;
@@ -66,10 +61,10 @@
 			// 
 			// btnStop
 			// 
-			btnStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btnStop.Location = new Point(515, 405);
+			btnStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnStop.Location = new Point(280, 446);
 			btnStop.Name = "btnStop";
-			btnStop.Size = new Size(75, 23);
+			btnStop.Size = new Size(100, 30);
 			btnStop.TabIndex = 1;
 			btnStop.Text = "Stop";
 			btnStop.UseVisualStyleBackColor = true;
@@ -77,20 +72,20 @@
 			// 
 			// cmbSongList
 			// 
-			cmbSongList.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			cmbSongList.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			cmbSongList.FormattingEnabled = true;
-			cmbSongList.Location = new Point(129, 435);
+			cmbSongList.Location = new Point(118, 533);
 			cmbSongList.Name = "cmbSongList";
-			cmbSongList.Size = new Size(344, 23);
+			cmbSongList.Size = new Size(318, 23);
 			cmbSongList.TabIndex = 2;
 			cmbSongList.SelectedIndexChanged += cmbSongList_SelectedIndexChanged;
 			// 
 			// btnChooseFolder
 			// 
 			btnChooseFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnChooseFolder.Location = new Point(12, 434);
+			btnChooseFolder.Location = new Point(12, 528);
 			btnChooseFolder.Name = "btnChooseFolder";
-			btnChooseFolder.Size = new Size(111, 23);
+			btnChooseFolder.Size = new Size(100, 30);
 			btnChooseFolder.TabIndex = 3;
 			btnChooseFolder.Text = "Choose folder...";
 			btnChooseFolder.UseVisualStyleBackColor = true;
@@ -98,10 +93,10 @@
 			// 
 			// btnClearList
 			// 
-			btnClearList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btnClearList.Location = new Point(479, 433);
+			btnClearList.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnClearList.Location = new Point(442, 528);
 			btnClearList.Name = "btnClearList";
-			btnClearList.Size = new Size(111, 23);
+			btnClearList.Size = new Size(100, 30);
 			btnClearList.TabIndex = 4;
 			btnClearList.Text = "Clear list...";
 			btnClearList.UseVisualStyleBackColor = true;
@@ -112,147 +107,96 @@
 			pbxCover.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
 			pbxCover.Location = new Point(12, 12);
 			pbxCover.Name = "pbxCover";
-			pbxCover.Size = new Size(509, 285);
+			pbxCover.Size = new Size(530, 377);
 			pbxCover.TabIndex = 8;
 			pbxCover.TabStop = false;
 			// 
 			// tbrVolume
 			// 
-			tbrVolume.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tbrVolume.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			tbrVolume.LargeChange = 0;
-			tbrVolume.Location = new Point(12, 354);
+			tbrVolume.Location = new Point(12, 395);
 			tbrVolume.Name = "tbrVolume";
-			tbrVolume.Size = new Size(578, 45);
+			tbrVolume.Size = new Size(530, 45);
 			tbrVolume.TabIndex = 11;
 			tbrVolume.TickStyle = TickStyle.None;
 			tbrVolume.Scroll += tbrVolume_Scroll;
 			// 
 			// tbrSeek
 			// 
-			tbrSeek.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tbrSeek.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			tbrSeek.LargeChange = 1;
-			tbrSeek.Location = new Point(12, 303);
+			tbrSeek.Location = new Point(12, 482);
 			tbrSeek.Name = "tbrSeek";
-			tbrSeek.Size = new Size(578, 45);
+			tbrSeek.Size = new Size(530, 45);
 			tbrSeek.TabIndex = 12;
 			tbrSeek.Scroll += tbrSeek_Scroll;
 			// 
-			// lblDebug1
-			// 
-			lblDebug1.AutoSize = true;
-			lblDebug1.Location = new Point(551, 38);
-			lblDebug1.Name = "lblDebug1";
-			lblDebug1.Size = new Size(61, 15);
-			lblDebug1.TabIndex = 13;
-			lblDebug1.Text = "lblDebug1";
-			lblDebug1.TextAlign = ContentAlignment.MiddleCenter;
-			// 
 			// btnPause
 			// 
-			btnPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btnPause.Location = new Point(434, 404);
+			btnPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnPause.Location = new Point(174, 446);
 			btnPause.Name = "btnPause";
-			btnPause.Size = new Size(75, 23);
+			btnPause.Size = new Size(100, 30);
 			btnPause.TabIndex = 14;
 			btnPause.Text = "Pause";
 			btnPause.UseVisualStyleBackColor = true;
 			btnPause.Click += btnPause_Click;
 			// 
-			// btnTest
-			// 
-			btnTest.Location = new Point(570, 12);
-			btnTest.Name = "btnTest";
-			btnTest.Size = new Size(75, 23);
-			btnTest.TabIndex = 15;
-			btnTest.Text = "Test";
-			btnTest.UseVisualStyleBackColor = true;
-			btnTest.Click += btnTest_Click;
-			// 
 			// btnSkipForward
 			// 
-			btnSkipForward.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btnSkipForward.Location = new Point(515, 376);
+			btnSkipForward.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnSkipForward.Location = new Point(386, 446);
 			btnSkipForward.Name = "btnSkipForward";
-			btnSkipForward.Size = new Size(75, 23);
+			btnSkipForward.Size = new Size(50, 30);
 			btnSkipForward.TabIndex = 16;
-			btnSkipForward.Text = ">>>";
+			btnSkipForward.Text = ">";
 			btnSkipForward.UseVisualStyleBackColor = true;
 			btnSkipForward.Click += btnSkipForward_Click;
 			// 
 			// btnSkipBack
 			// 
-			btnSkipBack.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btnSkipBack.Location = new Point(353, 376);
+			btnSkipBack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnSkipBack.Location = new Point(118, 446);
 			btnSkipBack.Name = "btnSkipBack";
-			btnSkipBack.Size = new Size(75, 23);
+			btnSkipBack.Size = new Size(50, 30);
 			btnSkipBack.TabIndex = 17;
-			btnSkipBack.Text = "<<<";
+			btnSkipBack.Text = "<";
 			btnSkipBack.UseVisualStyleBackColor = true;
 			btnSkipBack.Click += btnSkipBack_Click;
 			// 
-			// lblAudioFilePosition
+			// btnNextTrack
 			// 
-			lblAudioFilePosition.AutoSize = true;
-			lblAudioFilePosition.Location = new Point(551, 53);
-			lblAudioFilePosition.Name = "lblAudioFilePosition";
-			lblAudioFilePosition.Size = new Size(113, 15);
-			lblAudioFilePosition.TabIndex = 18;
-			lblAudioFilePosition.Text = "lblAudioFilePosition";
+			btnNextTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnNextTrack.Location = new Point(442, 446);
+			btnNextTrack.Name = "btnNextTrack";
+			btnNextTrack.Size = new Size(100, 30);
+			btnNextTrack.TabIndex = 21;
+			btnNextTrack.Text = ">>>";
+			btnNextTrack.UseVisualStyleBackColor = true;
+			btnNextTrack.Click += btnNextTrack_Click;
 			// 
-			// lblSeekPosition
+			// btnPreviousTrack
 			// 
-			lblSeekPosition.AutoSize = true;
-			lblSeekPosition.Location = new Point(551, 68);
-			lblSeekPosition.Name = "lblSeekPosition";
-			lblSeekPosition.Size = new Size(87, 15);
-			lblSeekPosition.TabIndex = 19;
-			lblSeekPosition.Text = "lblSeekPosition";
-			// 
-			// lblIsPlaying
-			// 
-			lblIsPlaying.AutoSize = true;
-			lblIsPlaying.Location = new Point(551, 83);
-			lblIsPlaying.Name = "lblIsPlaying";
-			lblIsPlaying.Size = new Size(67, 15);
-			lblIsPlaying.TabIndex = 20;
-			lblIsPlaying.Text = "lblIsPlaying";
-			// 
-			// txbURL
-			// 
-			txbURL.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			txbURL.Location = new Point(12, 404);
-			txbURL.Name = "txbURL";
-			txbURL.Size = new Size(173, 23);
-			txbURL.TabIndex = 21;
-			txbURL.Text = "URL...";
-			// 
-			// btnLoadURL
-			// 
-			btnLoadURL.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btnLoadURL.Location = new Point(191, 404);
-			btnLoadURL.Name = "btnLoadURL";
-			btnLoadURL.Size = new Size(82, 23);
-			btnLoadURL.TabIndex = 22;
-			btnLoadURL.Text = "Load URL";
-			btnLoadURL.UseVisualStyleBackColor = true;
-			btnLoadURL.Click += btnLoadURL_Click;
+			btnPreviousTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnPreviousTrack.Location = new Point(12, 446);
+			btnPreviousTrack.Name = "btnPreviousTrack";
+			btnPreviousTrack.Size = new Size(100, 30);
+			btnPreviousTrack.TabIndex = 22;
+			btnPreviousTrack.Text = "<<<";
+			btnPreviousTrack.UseVisualStyleBackColor = true;
+			btnPreviousTrack.Click += btnPreviousTrack_Click;
 			// 
 			// frmMain
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
-			ClientSize = new Size(719, 469);
-			Controls.Add(btnLoadURL);
-			Controls.Add(txbURL);
-			Controls.Add(lblIsPlaying);
-			Controls.Add(lblSeekPosition);
-			Controls.Add(lblAudioFilePosition);
+			ClientSize = new Size(554, 565);
+			Controls.Add(btnPreviousTrack);
+			Controls.Add(btnNextTrack);
 			Controls.Add(btnSkipBack);
 			Controls.Add(btnSkipForward);
-			Controls.Add(btnTest);
-			Controls.Add(btnPause);
-			Controls.Add(lblDebug1);
 			Controls.Add(tbrSeek);
 			Controls.Add(tbrVolume);
 			Controls.Add(pbxCover);
@@ -261,6 +205,7 @@
 			Controls.Add(cmbSongList);
 			Controls.Add(btnStop);
 			Controls.Add(btnPlay);
+			Controls.Add(btnPause);
 			Name = "frmMain";
 			Text = "Radio Beans";
 			((System.ComponentModel.ISupportInitialize)pbxCover).EndInit();
@@ -283,13 +228,12 @@
 		private TrackBar tbrSeek;
 		private Label lblDebug1;
 		private Button btnPause;
-		private Button btnTest;
 		private Button btnSkipForward;
 		private Button btnSkipBack;
 		private Label lblAudioFilePosition;
 		private Label lblSeekPosition;
 		private Label lblIsPlaying;
-		private TextBox txbURL;
-		private Button btnLoadURL;
+		private Button btnNextTrack;
+		private Button btnPreviousTrack;
 	}
 }

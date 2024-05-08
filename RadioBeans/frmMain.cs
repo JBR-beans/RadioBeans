@@ -1,35 +1,16 @@
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.Devices;
-using System.Media;
-using System.Windows.Forms;
 using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
-using System.Windows.Forms.VisualStyles;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.IO;
-using System.Security.Policy;
-using static System.Net.WebRequestMethods;
 
 namespace RadioBeans
 {
 
 	public partial class frmMain : Form
 	{
-		private MediaFoundationReader mediaReader;
-		private WasapiOut wasapiOut;
 		private WaveOutEvent outputDevice;
 		private AudioFileReader audioFile;
 
 		private OpenFileDialog audioLibrary = new OpenFileDialog();
-		private FolderBrowserDialog fbd = new FolderBrowserDialog();
 		private string[] clipLibrary;
-		private Image coverImage;
-		private Image tracklistImage;
-
 		private bool isPlaying;
-
-		private bool foundCover = false;
-		private bool foundTracklist = false;
 
 		public frmMain()
 		{
@@ -43,6 +24,8 @@ namespace RadioBeans
 			pbxCover.SizeMode = PictureBoxSizeMode.Zoom;
 			tmr1Second.Tick += tmr1Second_Tick;
 			tmr1Second.Interval = 1000; // 1 sec
+			btnPause.Visible = false;
+			btnPlay.Visible = true;
 
 			if (outputDevice == null)
 			{
@@ -69,15 +52,15 @@ namespace RadioBeans
 
 		private void btnChooseFolder_Click(object sender, EventArgs e)
 		{
-			Album album = new Album();
-			DialogResult result = fbd.ShowDialog();
+			InitializeTracks initializeTracks = new InitializeTracks(cmbSongList, pbxCover);
+			initializeTracks.InitializeTrackFolder();
+			initializeTracks.LoadTracksFromFolder();
+			/*DialogResult result = fbd.ShowDialog();
 			if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
 			{
 				clipLibrary = Directory.GetFiles(fbd.SelectedPath);
-				album.InitializeAlbum(clipLibrary, cmbSongList, pbxCover);
-
-				System.Windows.Forms.MessageBox.Show("Files found: " + clipLibrary.Length.ToString() + '\n' + "Cover found: " + foundCover.ToString());
-			}
+				initializeTracks.InitializeTrackFolder(clipLibrary, cmbSongList, pbxCover);
+			}*/
 		}
 
 		private void StartPlaying()
@@ -90,12 +73,13 @@ namespace RadioBeans
 			{
 				audioFile = new AudioFileReader(cmbSongList.SelectedItem.ToString());
 				outputDevice.Init(audioFile);
-				tbrSeek.Maximum = System.Convert.ToInt32(audioFile.Length) + 1;
+				tbrSeek.Maximum = (int)audioFile.Length;
 			}
 			outputDevice.Play();
 			tmr1Second.Start();
 			isPlaying = true;
-			lblIsPlaying.Text = isPlaying.ToString();
+			btnPause.Visible = true;
+			btnPlay.Visible = false;
 		}
 		private void tmr1Second_Tick(object sender, EventArgs e)
 		{
@@ -103,15 +87,13 @@ namespace RadioBeans
 			{
 				if (audioFile.Position < audioFile.Length)
 				{
-					tbrSeek.Value = System.Convert.ToInt32(audioFile.Position);
+					tbrSeek.Value = (int)audioFile.Position;
 				}
 				if (audioFile.Position == audioFile.Length - 1)
 				{
 					SongEnd();
 				}
 			}
-			lblAudioFilePosition.Text = audioFile.Position.ToString();
-			lblSeekPosition.Text = tbrSeek.Value.ToString();
 		}
 		public void SongEnd()
 		{
@@ -129,8 +111,9 @@ namespace RadioBeans
 				audioFile.Dispose();
 				audioFile = null;
 				isPlaying = false;
+				btnPause.Visible = false;
+				btnPlay.Visible = true;
 				tbrSeek.Value = 0;
-				lblIsPlaying.Text = isPlaying.ToString();
 			}
 		}
 		private void PausePlaying()
@@ -140,10 +123,15 @@ namespace RadioBeans
 				tmr1Second.Stop();
 				outputDevice?.Stop();
 				isPlaying = false;
-				lblIsPlaying.Text = isPlaying.ToString();
+				btnPause.Visible = false;
+				btnPlay.Visible = true;
 			}
 		}
 		private void cmbSongList_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			SongChanged();
+		}
+		public void SongChanged()
 		{
 			if (isPlaying == true)
 			{
@@ -164,8 +152,6 @@ namespace RadioBeans
 					audioFile.Position = audioFile.Length - 1;
 				}
 			}
-			lblAudioFilePosition.Text = audioFile.Position.ToString();
-			lblSeekPosition.Text = tbrSeek.Value.ToString();
 		}
 
 		private void tbrVolume_Scroll(object sender, EventArgs e)
@@ -175,35 +161,25 @@ namespace RadioBeans
 				outputDevice.Volume = tbrVolume.Value * .01f;
 			}
 		}
-
-		private void btnTest_Click(object sender, EventArgs e)
+		private void btnSkipForward_Click(object sender, EventArgs e)
 		{
 			if (audioFile != null)
 			{
-				audioFile.Position -= 500000;
-				tbrSeek.Value = Convert.ToInt32(audioFile.Position);
+				if (audioFile.Position > audioFile.Length - 1000000)
+				{
+					audioFile.Position = audioFile.Length - 1;
+				}
+				if (audioFile.Position < audioFile.Length - 1000000)
+				{
+					audioFile.Position += 1000000;
+				}
+				tbrSeek.Value = (int)audioFile.Position;
 			}
-		}
-
-		private void btnSkipForward_Click(object sender, EventArgs e)
-		{
-
-			if (audioFile.Position > audioFile.Length - 1000000)
-			{
-				audioFile.Position = audioFile.Length - 1;
-			}
-			if (audioFile.Position < audioFile.Length - 1000000)
-			{
-				audioFile.Position += 1000000;
-			}
-			tbrSeek.Value = Convert.ToInt32(audioFile.Position);
-			lblAudioFilePosition.Text = audioFile.Position.ToString();
-			lblSeekPosition.Text = tbrSeek.Value.ToString();
 		}
 
 		private void btnSkipBack_Click(object sender, EventArgs e)
 		{
-			if (isPlaying == true)
+			if (audioFile != null)
 			{
 				if (audioFile.Position > 1000000)
 				{
@@ -213,42 +189,25 @@ namespace RadioBeans
 				{
 					audioFile.Position = 0;
 				}
-				tbrSeek.Value = Convert.ToInt32(audioFile.Position);
+				tbrSeek.Value = (int)audioFile.Position;
 			}
-			lblAudioFilePosition.Text = audioFile.Position.ToString();
-			lblSeekPosition.Text = tbrSeek.Value.ToString();
 		}
 
-		private void btnLoadURL_Click(object sender, EventArgs e)
+		private void btnNextTrack_Click(object sender, EventArgs e)
 		{
-			var url = "http://media.ch9.ms/ch9/2876/fd36ef30-cfd2-4558-8412-3cf7a0852876/AzureWebJobs103.mp3";
-			if (mediaReader == null)
+			if (cmbSongList.SelectedIndex < cmbSongList.Items.Count-1)
 			{
-				mediaReader = new MediaFoundationReader(url);
+				cmbSongList.SelectedIndex = cmbSongList.SelectedIndex + 1;
+				SongChanged();
 			}
-            if (mediaReader != null)
-			{
-				mediaReader.Dispose();
-				mediaReader = new MediaFoundationReader(url);
-			}
+		}
 
-			if (wasapiOut == null)
+		private void btnPreviousTrack_Click(object sender, EventArgs e)
+		{
+			if (cmbSongList.SelectedIndex > 0)
 			{
-				wasapiOut = new WasapiOut();
-			}
-			if (wasapiOut != null)
-			{
-				wasapiOut.Dispose();
-				wasapiOut = new WasapiOut();
-			}
-			if (wasapiOut != null && mediaReader != null)
-			{
-				wasapiOut.Init(mediaReader);
-				wasapiOut.Play();
-				/*while (wasapiOut.PlaybackState == PlaybackState.Playing)
-				{
-					Thread.Sleep(1000);
-				}*/
+				cmbSongList.SelectedIndex = cmbSongList.SelectedIndex - 1;
+				SongChanged();
 			}
 		}
 	}
