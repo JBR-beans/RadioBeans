@@ -32,7 +32,7 @@
 			btnPlay = new Button();
 			btnStop = new Button();
 			cmbSongList = new ComboBox();
-			btnChooseFolder = new Button();
+			btnLoadFolder = new Button();
 			btnClearList = new Button();
 			tmr1Second = new System.Windows.Forms.Timer(components);
 			pbxCover = new PictureBox();
@@ -43,6 +43,7 @@
 			btnSkipBack = new Button();
 			btnNextTrack = new Button();
 			btnPreviousTrack = new Button();
+			lblNya = new Label();
 			((System.ComponentModel.ISupportInitialize)pbxCover).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrVolume).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrSeek).BeginInit();
@@ -80,16 +81,16 @@
 			cmbSongList.TabIndex = 2;
 			cmbSongList.SelectedIndexChanged += cmbSongList_SelectedIndexChanged;
 			// 
-			// btnChooseFolder
+			// btnLoadFolder
 			// 
-			btnChooseFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnChooseFolder.Location = new Point(12, 528);
-			btnChooseFolder.Name = "btnChooseFolder";
-			btnChooseFolder.Size = new Size(100, 30);
-			btnChooseFolder.TabIndex = 3;
-			btnChooseFolder.Text = "Choose folder...";
-			btnChooseFolder.UseVisualStyleBackColor = true;
-			btnChooseFolder.Click += btnChooseFolder_Click;
+			btnLoadFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnLoadFolder.Location = new Point(12, 528);
+			btnLoadFolder.Name = "btnLoadFolder";
+			btnLoadFolder.Size = new Size(100, 30);
+			btnLoadFolder.TabIndex = 3;
+			btnLoadFolder.Text = "Load folder...";
+			btnLoadFolder.UseVisualStyleBackColor = true;
+			btnLoadFolder.Click += btnLoadFolder_Click;
 			// 
 			// btnClearList
 			// 
@@ -187,12 +188,22 @@
 			btnPreviousTrack.UseVisualStyleBackColor = true;
 			btnPreviousTrack.Click += btnPreviousTrack_Click;
 			// 
+			// lblNya
+			// 
+			lblNya.AutoSize = true;
+			lblNya.Location = new Point(548, 24);
+			lblNya.Name = "lblNya";
+			lblNya.Size = new Size(38, 15);
+			lblNya.TabIndex = 23;
+			lblNya.Text = "label1";
+			// 
 			// frmMain
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
-			ClientSize = new Size(554, 565);
+			ClientSize = new Size(765, 565);
+			Controls.Add(lblNya);
 			Controls.Add(btnPreviousTrack);
 			Controls.Add(btnNextTrack);
 			Controls.Add(btnSkipBack);
@@ -201,7 +212,7 @@
 			Controls.Add(tbrVolume);
 			Controls.Add(pbxCover);
 			Controls.Add(btnClearList);
-			Controls.Add(btnChooseFolder);
+			Controls.Add(btnLoadFolder);
 			Controls.Add(cmbSongList);
 			Controls.Add(btnStop);
 			Controls.Add(btnPlay);
@@ -220,7 +231,7 @@
 		private Button btnPlay;
 		private Button btnStop;
 		private ComboBox cmbSongList;
-		private Button btnChooseFolder;
+		private Button btnLoadFolder;
 		private Button btnClearList;
 		private System.Windows.Forms.Timer tmr1Second;
 		private PictureBox pbxCover;
@@ -235,5 +246,6 @@
 		private Label lblIsPlaying;
 		private Button btnNextTrack;
 		private Button btnPreviousTrack;
+		private Label lblNya;
 	}
 }

@@ -50,17 +50,11 @@ namespace RadioBeans
 			PausePlaying();
 		}
 
-		private void btnChooseFolder_Click(object sender, EventArgs e)
+		private void btnLoadFolder_Click(object sender, EventArgs e)
 		{
 			InitializeTracks initializeTracks = new InitializeTracks(cmbSongList, pbxCover);
 			initializeTracks.InitializeTrackFolder();
-			initializeTracks.LoadTracksFromFolder();
-			/*DialogResult result = fbd.ShowDialog();
-			if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-			{
-				clipLibrary = Directory.GetFiles(fbd.SelectedPath);
-				initializeTracks.InitializeTrackFolder(clipLibrary, cmbSongList, pbxCover);
-			}*/
+			initializeTracks.LoadTracksFromFolder(lblNya);
 		}
 
 		private void StartPlaying()
@@ -195,7 +189,7 @@ namespace RadioBeans
 
 		private void btnNextTrack_Click(object sender, EventArgs e)
 		{
-			if (cmbSongList.SelectedIndex < cmbSongList.Items.Count-1)
+			if (cmbSongList.SelectedIndex < cmbSongList.Items.Count - 1)
 			{
 				cmbSongList.SelectedIndex = cmbSongList.SelectedIndex + 1;
 				SongChanged();
