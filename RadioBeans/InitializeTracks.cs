@@ -48,54 +48,30 @@ namespace RadioBeans
 			{
 				var tfile = TagLib.File.Create(_filesinfolder[i]);
 				Track track = new Track(_filesinfolder[i], tfile.Tag.Title, Path.GetExtension(_filesinfolder[i]),i);
-/*				_tracks[i].SetTrackPath(_filesinfolder[i]);
-				_tracks[i].SetTrackName(tfile.Tag.Title);
-				_tracks[i].SetTrackFileType(Path.GetExtension(_filesinfolder[i]));
-				_tracks[i].SetTrackID(i);*/
+				_tracks[i] = track;
 				tfile.Dispose();
-				/*if (tfile.Tag.Title == null)
+
+				if (_tracks[i].GetTrackName != null)
 				{
-					label.Text = "Title not found.";
+					label.Text += _tracks[i].GetTrackName + '\n';
 				}
-				label.Text = track.GetTrackName + track.GetTrackPath + track.GetTrackID.ToString();
-				if (track.GetTrackName == null)
+				else if (_tracks[i].GetTrackName == null)
 				{
-					label.Text = "Title not found." + '\n' +
-						track.GetTrackPath + '\n' +
-						track.GetTrackFileType + '\n' +
-						track.GetTrackID.ToString();
-				}*/
-				label.Text += track.GetTrackName + '\n' +
-					track.GetTrackPath + '\n' +
-					track.GetTrackID.ToString() + '\n' + '\n';
-				if (track.GetTrackName == null)
-				{
-					label.Text += "Title not found." + '\n' +
-					track.GetTrackPath + '\n' +
-					track.GetTrackFileType + '\n' +
-					track.GetTrackID.ToString() + '\n' + '\n';
+					label.Text += "Title not found." + '\n';
 				}
+				label.Text += _tracks[i].GetTrackPath + '\n';
+				label.Text += _tracks[i].GetTrackID.ToString() + '\n' + '\n';
 			}
-			/*foreach (Track track in _tracks)
-			{
-				
-			}*/
 
-			foreach (string filefound in _filesinfolder)
+			foreach (Track track in _tracks)
 			{
-				var tfile = TagLib.File.Create(filefound);
-
-				if (filefound.EndsWith(".mp3"))
+				if (track.GetTrackFileType == ".mp3" || track.GetTrackFileType == ".ogg")
 				{
-					_cmbtracks.Items.Add(filefound);
+					_cmbtracks.Items.Add(track.GetTrackPath);
 				}
-				if (filefound.EndsWith("Cover.png") || filefound.EndsWith("cover.png"))
+				if (track.GetTrackName == "Cover" || track.GetTrackName == "cover")
 				{
-					_coverimage = Image.FromFile(filefound);
-				}
-				if (filefound.EndsWith("Tracklist.png"))
-				{
-					_tracklistimage = Image.FromFile(filefound);
+					_coverimage = Image.FromFile(track.GetTrackPath);
 				}
 				if (_coverimage != null)
 				{

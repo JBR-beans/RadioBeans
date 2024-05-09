@@ -193,9 +193,8 @@
 			lblNya.AutoSize = true;
 			lblNya.Location = new Point(548, 24);
 			lblNya.Name = "lblNya";
-			lblNya.Size = new Size(38, 15);
+			lblNya.Size = new Size(0, 15);
 			lblNya.TabIndex = 23;
-			lblNya.Text = "label1";
 			// 
 			// frmMain
 			// 

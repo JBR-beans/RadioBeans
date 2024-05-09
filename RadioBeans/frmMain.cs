@@ -132,6 +132,7 @@ namespace RadioBeans
 				StopPlaying();
 				StartPlaying();
 			}
+			StartPlaying();
 		}
 		private void tbrSeek_Scroll(object sender, EventArgs e)
 		{
