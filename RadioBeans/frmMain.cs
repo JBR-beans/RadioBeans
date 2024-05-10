@@ -11,6 +11,9 @@ namespace RadioBeans
 		private OpenFileDialog audioLibrary = new OpenFileDialog();
 		private string[] clipLibrary;
 		private bool isPlaying;
+		// true = cover, false = tracklist
+		private bool changePicture = true;
+
 
 		public frmMain()
 		{
@@ -52,9 +55,10 @@ namespace RadioBeans
 
 		private void btnLoadFolder_Click(object sender, EventArgs e)
 		{
-			InitializeTracks initializeTracks = new InitializeTracks(cmbSongList, pbxCover);
-			initializeTracks.InitializeTrackFolder();
-			initializeTracks.LoadTracksFromFolder(lblNya);
+			InitializeTracks initializeTracks = new InitializeTracks();
+			initializeTracks.OpenFolder();
+			initializeTracks.InitializeTracksFromFolder(lblNya);
+			initializeTracks.LoadTracksToCombobox(cmbSongList, pbxCover);
 		}
 
 		private void StartPlaying()
@@ -204,6 +208,11 @@ namespace RadioBeans
 				cmbSongList.SelectedIndex = cmbSongList.SelectedIndex - 1;
 				SongChanged();
 			}
+		}
+
+		private void pbxCover_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

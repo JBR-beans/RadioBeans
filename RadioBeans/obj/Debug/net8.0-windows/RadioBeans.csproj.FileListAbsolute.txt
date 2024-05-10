@@ -26,3 +26,4 @@ D:\Code Repo\Radio Beans\RadioBeans\RadioBeans\obj\Debug\net8.0-windows\ref\Radi
 D:\Code Repo\Radio Beans\RadioBeans\RadioBeans\obj\Debug\net8.0-windows\RadioBeans.frmMain.resources
 D:\Code Repo\Radio Beans\RadioBeans\RadioBeans\obj\Debug\net8.0-windows\RadioBeans.sourcelink.json
 D:\Code Repo\Radio Beans\RadioBeans\RadioBeans\bin\Debug\net8.0-windows\TagLibSharp.dll
+D:\Code Repo\Radio Beans\RadioBeans\RadioBeans\bin\Debug\net8.0-windows\RadioBeansDocumentation.txt

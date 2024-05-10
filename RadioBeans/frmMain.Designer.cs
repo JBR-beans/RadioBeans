@@ -52,7 +52,7 @@
 			// btnPlay
 			// 
 			btnPlay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnPlay.Location = new Point(174, 446);
+			btnPlay.Location = new Point(174, 474);
 			btnPlay.Name = "btnPlay";
 			btnPlay.Size = new Size(100, 30);
 			btnPlay.TabIndex = 0;
@@ -63,7 +63,7 @@
 			// btnStop
 			// 
 			btnStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnStop.Location = new Point(280, 446);
+			btnStop.Location = new Point(280, 474);
 			btnStop.Name = "btnStop";
 			btnStop.Size = new Size(100, 30);
 			btnStop.TabIndex = 1;
@@ -75,7 +75,7 @@
 			// 
 			cmbSongList.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			cmbSongList.FormattingEnabled = true;
-			cmbSongList.Location = new Point(118, 533);
+			cmbSongList.Location = new Point(118, 561);
 			cmbSongList.Name = "cmbSongList";
 			cmbSongList.Size = new Size(318, 23);
 			cmbSongList.TabIndex = 2;
@@ -84,7 +84,7 @@
 			// btnLoadFolder
 			// 
 			btnLoadFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnLoadFolder.Location = new Point(12, 528);
+			btnLoadFolder.Location = new Point(12, 556);
 			btnLoadFolder.Name = "btnLoadFolder";
 			btnLoadFolder.Size = new Size(100, 30);
 			btnLoadFolder.TabIndex = 3;
@@ -95,7 +95,7 @@
 			// btnClearList
 			// 
 			btnClearList.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnClearList.Location = new Point(442, 528);
+			btnClearList.Location = new Point(442, 556);
 			btnClearList.Name = "btnClearList";
 			btnClearList.Size = new Size(100, 30);
 			btnClearList.TabIndex = 4;
@@ -108,15 +108,16 @@
 			pbxCover.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
 			pbxCover.Location = new Point(12, 12);
 			pbxCover.Name = "pbxCover";
-			pbxCover.Size = new Size(530, 377);
+			pbxCover.Size = new Size(530, 405);
 			pbxCover.TabIndex = 8;
 			pbxCover.TabStop = false;
+			pbxCover.Click += pbxCover_Click;
 			// 
 			// tbrVolume
 			// 
 			tbrVolume.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			tbrVolume.LargeChange = 0;
-			tbrVolume.Location = new Point(12, 395);
+			tbrVolume.Location = new Point(12, 423);
 			tbrVolume.Name = "tbrVolume";
 			tbrVolume.Size = new Size(530, 45);
 			tbrVolume.TabIndex = 11;
@@ -127,7 +128,7 @@
 			// 
 			tbrSeek.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			tbrSeek.LargeChange = 1;
-			tbrSeek.Location = new Point(12, 482);
+			tbrSeek.Location = new Point(12, 510);
 			tbrSeek.Name = "tbrSeek";
 			tbrSeek.Size = new Size(530, 45);
 			tbrSeek.TabIndex = 12;
@@ -136,7 +137,7 @@
 			// btnPause
 			// 
 			btnPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnPause.Location = new Point(174, 446);
+			btnPause.Location = new Point(174, 474);
 			btnPause.Name = "btnPause";
 			btnPause.Size = new Size(100, 30);
 			btnPause.TabIndex = 14;
@@ -147,7 +148,7 @@
 			// btnSkipForward
 			// 
 			btnSkipForward.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnSkipForward.Location = new Point(386, 446);
+			btnSkipForward.Location = new Point(386, 474);
 			btnSkipForward.Name = "btnSkipForward";
 			btnSkipForward.Size = new Size(50, 30);
 			btnSkipForward.TabIndex = 16;
@@ -158,7 +159,7 @@
 			// btnSkipBack
 			// 
 			btnSkipBack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnSkipBack.Location = new Point(118, 446);
+			btnSkipBack.Location = new Point(118, 474);
 			btnSkipBack.Name = "btnSkipBack";
 			btnSkipBack.Size = new Size(50, 30);
 			btnSkipBack.TabIndex = 17;
@@ -169,7 +170,7 @@
 			// btnNextTrack
 			// 
 			btnNextTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnNextTrack.Location = new Point(442, 446);
+			btnNextTrack.Location = new Point(442, 474);
 			btnNextTrack.Name = "btnNextTrack";
 			btnNextTrack.Size = new Size(100, 30);
 			btnNextTrack.TabIndex = 21;
@@ -180,7 +181,7 @@
 			// btnPreviousTrack
 			// 
 			btnPreviousTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnPreviousTrack.Location = new Point(12, 446);
+			btnPreviousTrack.Location = new Point(12, 474);
 			btnPreviousTrack.Name = "btnPreviousTrack";
 			btnPreviousTrack.Size = new Size(100, 30);
 			btnPreviousTrack.TabIndex = 22;
@@ -201,7 +202,7 @@
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
-			ClientSize = new Size(765, 565);
+			ClientSize = new Size(923, 593);
 			Controls.Add(lblNya);
 			Controls.Add(btnPreviousTrack);
 			Controls.Add(btnNextTrack);

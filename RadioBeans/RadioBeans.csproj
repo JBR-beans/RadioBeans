@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>D:\Code Repo\Radio Beans\RadioBeansDocumentation.txt</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

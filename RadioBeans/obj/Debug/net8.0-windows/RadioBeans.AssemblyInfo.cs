@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RadioBeans")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35e8fc26a923c56259b6225e52f2cb13fe6e5f09")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2ec6ef40ac51db452f1e144379ce121c7c047b1")]
 [assembly: System.Reflection.AssemblyProductAttribute("RadioBeans")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RadioBeans")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

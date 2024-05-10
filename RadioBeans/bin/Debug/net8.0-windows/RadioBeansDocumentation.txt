@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RadioBeans</name>
+    </assembly>
+    <members>
+        <member name="F:RadioBeans.frmMain.components">
+            <summary>
+             Required designer variable.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.frmMain.Dispose(System.Boolean)">
+            <summary>
+             Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:RadioBeans.frmMain.InitializeComponent">
+            <summary>
+             Required method for Designer support - do not modify
+             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:RadioBeans.InitializeTracks">
+            <summary>
+            Class used to locate and load files, initialize Tracks from those files, and load those Tracks into the application.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks._tracks">
+            <summary>
+            Array of Tracks to be loaded into the application.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks._totaltracks">
+            <summary>
+            Total files loaded into Tracks. 
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks._filesinfolder">
+            <summary>
+            File paths found in a folder in the form of strings.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks._coverimage">
+            <summary>
+            Image that is assigned as cover art for the Track.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks._tracklistimage">
+            <summary>
+            Image that is assigned as tracklist art for the Track.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks._cmbtracks">
+            <summary>
+            Combo box that will hold the file path assignments of the Tracks.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks._picturebox">
+            <summary>
+            Picture box that will display images assigned to the Track.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.InitializeTracks.fbd">
+            <summary>
+            Used to locate and load files.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.InitializeTracks.OpenFolder">
+            <summary>
+            Open a folder dialog and load selected files.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.InitializeTracks.InitializeTracksFromFolder(System.Windows.Forms.Label)">
+            <summary>
+            Initialize Track objects from file data.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.InitializeTracks.LoadTracksToCombobox(System.Windows.Forms.ComboBox,System.Windows.Forms.PictureBox)">
+            <summary>
+            Load initialized Tracks into the assigned controls.
+            </summary>=
+        </member>
+        <member name="M:RadioBeans.Program.Main">
+            <summary>
+             The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:RadioBeans.Track">
+            <summary>
+            Stores various pieces of data that are used by the application. Data is loaded from a file on disk and stored in a Track. The application uses the data in the Track to play media, display meta-data, and sort and organize Tracks.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.Track._trackpath">
+            <summary>
+            The file path reference.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.Track._trackname">
+            <summary>
+            Title found in file data. Possibility of null.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.Track._trackfiletype">
+            <summary>
+            File extension of the file, stored as a string (ex. ".png").
+            </summary>
+        </member>
+        <member name="F:RadioBeans.Track._trackid">
+            <summary>
+            Optional, ID assigned to this Track.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.Track._coverimage">
+            <summary>
+            Image of any cover art assigned to the Track.
+            </summary>
+        </member>
+        <member name="F:RadioBeans.Track._tracklistimage">
+            <summary>
+            Image of any tracklist art assigned to the Track.
+            </summary>
+        </member>
+        <member name="P:RadioBeans.Track.GetTrackPath">
+            <summary>
+            Gets the file path assigned to the Track in the form of a string.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.SetTrackPath(System.String)">
+            <summary>
+            Sets or changes the file path assigned to the Track, takes a string.
+            </summary>
+        </member>
+        <member name="P:RadioBeans.Track.GetTrackName">
+            <summary>
+            Gets the file name that is assigned to the Track in the form of a string.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.SetTrackName(System.String)">
+            <summary>
+            Set or change the title assigned to the Track, takes a string. 
+            </summary>
+        </member>
+        <member name="P:RadioBeans.Track.GetTrackFileType">
+            <summary>
+            Gets the stored file type assigned to the Track in the form of a string.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.SetTrackFileType(System.String)">
+            <summary>
+            Set the title assigned to the Track, takes a string. Recommended to set this during Track initialization and not be changed afterwards.
+            </summary>
+        </member>
+        <member name="P:RadioBeans.Track.GetTrackID">
+            <summary>
+            Get the ID that was generated or assigned to the Track. Possibly null.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.SetTrackID(System.Int32)">
+            <summary>
+            Set or change the ID assigned to the Track, takes an int. 
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.GetCoverImage">
+            <summary>
+            Gets the cover art stored in the Track and returns it as an Image. Possibly null.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.SetCoverImage(System.Drawing.Image)">
+            <summary>
+            Set or change the cover art assigned to the Track, takes an Image.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.GetTracklistImage">
+            <summary>
+            Set or change the tracklist art assigned to the Track, takes an Image.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.Track.SetTracklistImage(System.Drawing.Image)">
+            <summary>
+            Gets the tracklist art stored in the Track and returns it as an Image. Possibly null.
+            </summary>
+        </member>
+        <member name="T:RadioBeans.ApplicationConfiguration">
+            <summary>
+             Bootstrap the application configuration.
+            </summary>
+        </member>
+        <member name="M:RadioBeans.ApplicationConfiguration.Initialize">
+            <summary>
+             Bootstrap the application as follows:
+             <code>
+             global::System.Windows.Forms.Application.EnableVisualStyles();
+             global::System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+             global::System.Windows.Forms.Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            </code>
+            </summary>
+        </member>
+    </members>
+</doc>
