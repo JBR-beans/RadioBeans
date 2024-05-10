@@ -50,10 +50,6 @@ namespace RadioBeans
 		/// </summary>
 		private FolderBrowserDialog fbd;
 		// this will populate the selected combo box with files
-		public InitializeTracks()
-		{
-			
-		}
 		/// <summary>
 		/// Open a folder dialog and load selected files.
 		/// </summary>
