@@ -56,9 +56,9 @@ namespace RadioBeans
 		private void btnLoadFolder_Click(object sender, EventArgs e)
 		{
 			InitializeTracks initializeTracks = new InitializeTracks();
-			initializeTracks.OpenFolder();
-			initializeTracks.InitializeTracksFromFolder(lblNya);
-			initializeTracks.LoadTracksToCombobox(cmbSongList, pbxCover);
+			initializeTracks.LoadFolder();
+			initializeTracks.TrackInitialization(lblNya);
+			initializeTracks.LoadTracks(cmbSongList, pbxCover);
 		}
 
 		private void StartPlaying()
@@ -212,7 +212,7 @@ namespace RadioBeans
 
 		private void pbxCover_Click(object sender, EventArgs e)
 		{
-
+			changePicture = !changePicture;
 		}
 	}
 }

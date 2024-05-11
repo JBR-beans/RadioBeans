@@ -18,10 +18,12 @@ namespace RadioBeans
 		/// Array of Tracks to be loaded into the application.
 		/// </summary>
 		private Track[] _tracks;
+
 		/// <summary>
 		/// Total files loaded into Tracks. 
 		/// </summary>
 		private int _totaltracks;
+
 		/// <summary>
 		/// File paths found in a folder in the form of strings.
 		/// </summary>
@@ -31,15 +33,12 @@ namespace RadioBeans
 		/// Image that is assigned as cover art for the Track.
 		/// </summary>
 		private Image _coverimage;
+
 		/// <summary>
 		/// Image that is assigned as tracklist art for the Track.
 		/// </summary>
 		private Image _tracklistimage;
 
-		/// <summary>
-		/// Combo box that will hold the file path assignments of the Tracks.
-		/// </summary>
-		private ComboBox _cmbtracks;
 		/// <summary>
 		/// Picture box that will display images assigned to the Track.
 		/// </summary>
@@ -49,11 +48,11 @@ namespace RadioBeans
 		/// Used to locate and load files.
 		/// </summary>
 		private FolderBrowserDialog fbd;
-		// this will populate the selected combo box with files
+
 		/// <summary>
 		/// Open a folder dialog and load selected files.
 		/// </summary>
-		public void OpenFolder()
+		public void LoadFolder()
 		{
 			fbd = new FolderBrowserDialog();
 			DialogResult result = fbd.ShowDialog();
@@ -64,9 +63,9 @@ namespace RadioBeans
 			}
 		}
 		/// <summary>
-		/// Initialize Track objects from file data.
+		/// Populate Track data with loaded file data.
 		/// </summary>
-		public void InitializeTracksFromFolder(Label label)
+		public void TrackInitialization(Label label)
 		{
 			_tracks = new Track[_totaltracks];
 
@@ -109,7 +108,7 @@ namespace RadioBeans
 			{
 				if (track.GetTrackFileType == ".mp3" || track.GetTrackFileType == ".ogg")
 				{
-					_cmbtracks.Items.Add(track.GetTrackPath);
+					_tracks.Items.Add(track.GetTrackPath);
 				}
 				if (track.GetTrackName == "Cover" || track.GetTrackName == "cover")
 				{
@@ -123,28 +122,12 @@ namespace RadioBeans
 		}
 
 		/// <summary>
-		/// Load initialized Tracks into the assigned controls.
+		/// Load initialized Tracks to be used by the application.
 		/// </summary>=
-		public void LoadTracksToCombobox(ComboBox cmbTracks, PictureBox picturebox)
+		public void LoadTracks(Track[] Tracks)
 		{
-			_cmbtracks = cmbTracks;
-			_picturebox = picturebox;
-
-			foreach (Track track in _tracks)
-			{
-				if (track.GetTrackFileType == ".mp3" || track.GetTrackFileType == ".ogg")
-				{
-					_cmbtracks.Items.Add(track.GetTrackPath);
-				}
-				if (track.GetTrackName == "Cover" || track.GetTrackName == "cover")
-				{
-					_coverimage = Image.FromFile(track.GetTrackPath);
-				}
-				if (_coverimage != null)
-				{
-					_picturebox.Image = _coverimage;
-				}
-			}
+			_tracks = Tracks;
 		}
+		
 	}
 }
