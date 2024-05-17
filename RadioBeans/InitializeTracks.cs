@@ -65,11 +65,11 @@ namespace RadioBeans
 		/// <summary>
 		/// Populate Track data with loaded file data.
 		/// </summary>
-		public void TrackInitialization(Label label)
+		public void TrackInitialization(PictureBox pbx)
 		{
 			_tracks = new Track[_totaltracks];
 
-			for (int i = 0; i < _filesinfolder.Length; i++)
+			for (int i = 0; i < _totaltracks; i++)
 			{
 				// open a taglib file that will get the info out of the file at the path
 				// we will populate the track object with this info 
@@ -79,44 +79,32 @@ namespace RadioBeans
 				track.SetTrackPath(_filesinfolder[i]);
 				track.SetTrackName(tfile.Tag.Title);
 				track.SetTrackFileType(Path.GetExtension(_filesinfolder[i]));
-				track.SetTrackID(i);
-				if (track.GetTrackName == "cover" || track.GetTrackName == "Cover")
+				track.ID = i;
+				// || track.GetTrackName == "cover"
+				if (track.GetTrackFileType == ".png")
 				{
-					track.SetCoverImage(Image.FromFile(track.GetTrackPath));
-				}
-				if (track.GetTrackName == "tracklist" || track.GetTrackName == "Tracklist")
-				{
-					track.SetTracklistImage(Image.FromFile(track.GetTrackPath));
+					_coverimage = Image.FromFile(track.GetTrackPath);
+
+					if (pbx.Image == null)
+					{
+						MessageBox.Show("aaaa");
+					}
 				}
 
 				_tracks[i] = track;
+				
 				tfile.Dispose();
-
-				if (_tracks[i].GetTrackName != null)
-				{
-					label.Text += _tracks[i].GetTrackName + '\n';
-				}
-				else if (_tracks[i].GetTrackName == null)
-				{
-					label.Text += "Title not found." + '\n';
-				}
-				label.Text += _tracks[i].GetTrackPath + '\n';
-				label.Text += _tracks[i].GetTrackID.ToString() + '\n' + '\n';
 			}
 
-			foreach (Track track in _tracks)
+			for (int i = 0; i < _tracks.Length; i++)
 			{
-				if (track.GetTrackFileType == ".mp3" || track.GetTrackFileType == ".ogg")
-				{
-					_tracks.Items.Add(track.GetTrackPath);
-				}
-				if (track.GetTrackName == "Cover" || track.GetTrackName == "cover")
-				{
-					_coverimage = Image.FromFile(track.GetTrackPath);
-				}
 				if (_coverimage != null)
 				{
-					_picturebox.Image = _coverimage;
+					_tracks[i].CoverImage = _coverimage;
+					if (_tracks[i].CoverImage == null)
+					{
+						MessageBox.Show("aaaa");
+					}
 				}
 			}
 		}
@@ -124,10 +112,17 @@ namespace RadioBeans
 		/// <summary>
 		/// Load initialized Tracks to be used by the application.
 		/// </summary>=
-		public void LoadTracks(Track[] Tracks)
+		public void LoadTracks(Track[] tracks)
 		{
-			_tracks = Tracks;
+			for (int i = 0; i<tracks.Length; i++)
+			{
+				tracks[i] = _tracks[i];
+				if (tracks[i].CoverImage == null)
+				{
+					MessageBox.Show("aaaa");
+				}
+			}
 		}
-		
+		public int GetTrackCount() { return _totaltracks; }
 	}
 }

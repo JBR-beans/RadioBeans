@@ -9,7 +9,7 @@ namespace RadioBeans
 	/// <summary>
 	/// Stores various pieces of data that are used by the application. Data is loaded from a file on disk and stored in a Track. The application uses the data in the Track to play media, display meta-data, and sort and organize Tracks.
 	/// </summary>
-	internal class Track
+	public class Track
 	{
 		// next up:
 		// methods for finding a Track in a Track[] by certain criteria
@@ -58,7 +58,15 @@ namespace RadioBeans
 		/// <summary>
 		/// Gets the file name that is assigned to the Track in the form of a string.
 		/// </summary>
-		public string GetTrackName { get { return _trackname; } }
+		public string GetTrackName
+		{
+			get
+			{
+				if (_trackname != null)
+				{ return _trackname; }
+				return "no name";
+			}
+		}
 
 		/// <summary>
 		/// Set or change the title assigned to the Track, takes a string. 
@@ -75,35 +83,32 @@ namespace RadioBeans
 		/// </summary>
 		public void SetTrackFileType(string trackFileType) { _trackfiletype = trackFileType; }
 
-		/// <summary>
-		/// Get the ID that was generated or assigned to the Track. Possibly null.
-		/// </summary>
-		public int GetTrackID { get { return _trackid; } }
 
 		/// <summary>
-		/// Set or change the ID assigned to the Track, takes an int. 
+		/// The ID stored in the form of an int in the Track. 
 		/// </summary>
-		public void SetTrackID(int trackID) { _trackid = trackID; }
+		public new int ID
+		{
+			get => _trackid;
+			set => _trackid = value;
+		}
 
 		/// <summary>
-		/// Gets the cover art stored in the Track and returns it as an Image. Possibly null.
+		/// Cover art stored as an Image in the Track.
 		/// </summary>
-		public Image GetCoverImage() { return _coverimage; }
+		public new Image CoverImage
+		{
+			get => _coverimage;
+			set => _coverimage = value;
+		}
 
 		/// <summary>
-		/// Set or change the cover art assigned to the Track, takes an Image.
+		/// Tracklist art stored as an Image in the Track.
 		/// </summary>
-		public void SetCoverImage(Image coverImage) {  _coverimage = coverImage; }
-
-		/// <summary>
-		/// Set or change the tracklist art assigned to the Track, takes an Image.
-		/// </summary>
-		public Image GetTracklistImage() { return _tracklistimage; }
-
-		/// <summary>
-		/// Gets the tracklist art stored in the Track and returns it as an Image. Possibly null.
-		/// </summary>
-		public void SetTracklistImage(Image tracklistImage) { _tracklistimage = tracklistImage; }
-
+		public new Image TracklistImage
+		{
+			get => _tracklistimage;
+			set => _tracklistimage = value;
+		}
 	}
 }

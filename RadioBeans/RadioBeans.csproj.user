@@ -4,5 +4,8 @@
     <Compile Update="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="TrackEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

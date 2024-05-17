@@ -51,11 +51,6 @@
             Image that is assigned as tracklist art for the Track.
             </summary>
         </member>
-        <member name="F:RadioBeans.InitializeTracks._cmbtracks">
-            <summary>
-            Combo box that will hold the file path assignments of the Tracks.
-            </summary>
-        </member>
         <member name="F:RadioBeans.InitializeTracks._picturebox">
             <summary>
             Picture box that will display images assigned to the Track.
@@ -66,24 +61,40 @@
             Used to locate and load files.
             </summary>
         </member>
-        <member name="M:RadioBeans.InitializeTracks.OpenFolder">
+        <member name="M:RadioBeans.InitializeTracks.LoadFolder">
             <summary>
             Open a folder dialog and load selected files.
             </summary>
         </member>
-        <member name="M:RadioBeans.InitializeTracks.InitializeTracksFromFolder(System.Windows.Forms.Label)">
+        <member name="M:RadioBeans.InitializeTracks.TrackInitialization(System.Windows.Forms.PictureBox)">
             <summary>
-            Initialize Track objects from file data.
+            Populate Track data with loaded file data.
             </summary>
         </member>
-        <member name="M:RadioBeans.InitializeTracks.LoadTracksToCombobox(System.Windows.Forms.ComboBox,System.Windows.Forms.PictureBox)">
+        <member name="M:RadioBeans.InitializeTracks.LoadTracks(RadioBeans.Track[])">
             <summary>
-            Load initialized Tracks into the assigned controls.
+            Load initialized Tracks to be used by the application.
             </summary>=
         </member>
         <member name="M:RadioBeans.Program.Main">
             <summary>
              The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:RadioBeans.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:RadioBeans.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:RadioBeans.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
             </summary>
         </member>
         <member name="T:RadioBeans.Track">
@@ -151,34 +162,36 @@
             Set the title assigned to the Track, takes a string. Recommended to set this during Track initialization and not be changed afterwards.
             </summary>
         </member>
-        <member name="P:RadioBeans.Track.GetTrackID">
+        <member name="P:RadioBeans.Track.ID">
             <summary>
-            Get the ID that was generated or assigned to the Track. Possibly null.
+            The ID stored in the form of an int in the Track. 
             </summary>
         </member>
-        <member name="M:RadioBeans.Track.SetTrackID(System.Int32)">
+        <member name="P:RadioBeans.Track.CoverImage">
             <summary>
-            Set or change the ID assigned to the Track, takes an int. 
+            Cover art stored as an Image in the Track.
             </summary>
         </member>
-        <member name="M:RadioBeans.Track.GetCoverImage">
+        <member name="P:RadioBeans.Track.TracklistImage">
             <summary>
-            Gets the cover art stored in the Track and returns it as an Image. Possibly null.
+            Tracklist art stored as an Image in the Track.
             </summary>
         </member>
-        <member name="M:RadioBeans.Track.SetCoverImage(System.Drawing.Image)">
-            <summary>
-            Set or change the cover art assigned to the Track, takes an Image.
+        <member name="F:RadioBeans.TrackEntry.components">
+            <summary> 
+            Required designer variable.
             </summary>
         </member>
-        <member name="M:RadioBeans.Track.GetTracklistImage">
-            <summary>
-            Set or change the tracklist art assigned to the Track, takes an Image.
+        <member name="M:RadioBeans.TrackEntry.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
             </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:RadioBeans.Track.SetTracklistImage(System.Drawing.Image)">
-            <summary>
-            Gets the tracklist art stored in the Track and returns it as an Image. Possibly null.
+        <member name="M:RadioBeans.TrackEntry.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
             </summary>
         </member>
         <member name="T:RadioBeans.ApplicationConfiguration">

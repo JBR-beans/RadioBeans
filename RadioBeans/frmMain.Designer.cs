@@ -44,6 +44,7 @@
 			btnNextTrack = new Button();
 			btnPreviousTrack = new Button();
 			lblNya = new Label();
+			flpTrackSelection = new FlowLayoutPanel();
 			((System.ComponentModel.ISupportInitialize)pbxCover).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrVolume).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrSeek).BeginInit();
@@ -109,6 +110,7 @@
 			pbxCover.Location = new Point(12, 12);
 			pbxCover.Name = "pbxCover";
 			pbxCover.Size = new Size(530, 405);
+			pbxCover.SizeMode = PictureBoxSizeMode.Zoom;
 			pbxCover.TabIndex = 8;
 			pbxCover.TabStop = false;
 			pbxCover.Click += pbxCover_Click;
@@ -192,10 +194,21 @@
 			// lblNya
 			// 
 			lblNya.AutoSize = true;
-			lblNya.Location = new Point(548, 24);
+			lblNya.Location = new Point(548, 571);
 			lblNya.Name = "lblNya";
-			lblNya.Size = new Size(0, 15);
+			lblNya.Size = new Size(79, 15);
 			lblNya.TabIndex = 23;
+			lblNya.Text = "sadsadsadasd";
+			// 
+			// flpTrackSelection
+			// 
+			flpTrackSelection.AutoScroll = true;
+			flpTrackSelection.FlowDirection = FlowDirection.TopDown;
+			flpTrackSelection.Location = new Point(548, 12);
+			flpTrackSelection.Name = "flpTrackSelection";
+			flpTrackSelection.Size = new Size(363, 543);
+			flpTrackSelection.TabIndex = 24;
+			flpTrackSelection.WrapContents = false;
 			// 
 			// frmMain
 			// 
@@ -203,6 +216,7 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
 			ClientSize = new Size(923, 593);
+			Controls.Add(flpTrackSelection);
 			Controls.Add(lblNya);
 			Controls.Add(btnPreviousTrack);
 			Controls.Add(btnNextTrack);
@@ -237,15 +251,12 @@
 		private PictureBox pbxCover;
 		private TrackBar tbrVolume;
 		private TrackBar tbrSeek;
-		private Label lblDebug1;
 		private Button btnPause;
 		private Button btnSkipForward;
 		private Button btnSkipBack;
-		private Label lblAudioFilePosition;
-		private Label lblSeekPosition;
-		private Label lblIsPlaying;
 		private Button btnNextTrack;
 		private Button btnPreviousTrack;
 		private Label lblNya;
+		private FlowLayoutPanel flpTrackSelection;
 	}
 }

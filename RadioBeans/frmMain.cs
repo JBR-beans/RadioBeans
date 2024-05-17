@@ -14,6 +14,11 @@ namespace RadioBeans
 		// true = cover, false = tracklist
 		private bool changePicture = true;
 
+		public Track currentlyPlayingTrack;
+
+		public Track[] Tracks;
+
+		private Image currentImage;
 
 		public frmMain()
 		{
@@ -36,6 +41,7 @@ namespace RadioBeans
 				outputDevice.Volume = tbrVolume.Value * .01f;
 			}
 		}
+		
 		private void btnClearList_Click(object sender, EventArgs e)
 		{
 			cmbSongList.Items.Clear();
@@ -56,9 +62,72 @@ namespace RadioBeans
 		private void btnLoadFolder_Click(object sender, EventArgs e)
 		{
 			InitializeTracks initializeTracks = new InitializeTracks();
+
 			initializeTracks.LoadFolder();
-			initializeTracks.TrackInitialization(lblNya);
-			initializeTracks.LoadTracks(cmbSongList, pbxCover);
+			initializeTracks.TrackInitialization(pbxCover);
+			if (pbxCover.Image == null)
+			{
+				MessageBox.Show("uwu");
+			}
+
+			Tracks = new Track[initializeTracks.GetTrackCount()];
+
+			initializeTracks.LoadTracks(Tracks);
+
+			for (int i = 0; i < initializeTracks.GetTrackCount(); i++)
+			{
+				TrackEntry entry = new TrackEntry();
+
+				if (Tracks[i].CoverImage != null)
+				{
+					entry.Image = Tracks[i].CoverImage;
+				}
+
+				entry.Text = Tracks[i].GetTrackName;
+				entry.TrackID = Tracks[i].ID;
+				entry.Track = Tracks[i];
+
+				if (Tracks[i] == null)
+				{
+					MessageBox.Show("Track failed to initialize");
+					break;
+				}
+
+				/*if (Tracks[i].GetCoverImage() == null)
+				{
+					MessageBox.Show("Track image failed to initialize");
+					break;
+				}*/
+				/*if (entry.Image == null)
+				{
+					MessageBox.Show("Image failed to display");
+					break;
+				}*/
+				entry.Click += (sender, e) =>
+				{
+					currentlyPlayingTrack = entry.Track;
+					if (currentlyPlayingTrack.CoverImage != null)
+					{
+						currentImage = currentlyPlayingTrack.CoverImage;
+						pbxCover.Image = currentImage;
+					}
+					if (currentlyPlayingTrack.CoverImage == null)
+					{
+						MessageBox.Show("Failed to display image");
+					}
+
+
+					StopPlaying();
+					StartPlaying();
+
+				};
+				flpTrackSelection.Controls.Add(entry);
+			}
+		}
+
+		public void TrackEntry_Click(object sender, EventArgs e)
+		{
+
 		}
 
 		private void StartPlaying()
@@ -69,7 +138,9 @@ namespace RadioBeans
 			}
 			if (audioFile == null)
 			{
-				audioFile = new AudioFileReader(cmbSongList.SelectedItem.ToString());
+				// just needs a file path
+				audioFile = new AudioFileReader(currentlyPlayingTrack.GetTrackPath);
+
 				outputDevice.Init(audioFile);
 				tbrSeek.Maximum = (int)audioFile.Length;
 			}
@@ -96,11 +167,10 @@ namespace RadioBeans
 		public void SongEnd()
 		{
 			isPlaying = false;
-			lblIsPlaying.Text = isPlaying.ToString();
 		}
 		private void StopPlaying()
 		{
-			if (outputDevice != null)
+			if (outputDevice != null && audioFile != null)
 			{
 				tmr1Second.Stop();
 				outputDevice?.Stop();
