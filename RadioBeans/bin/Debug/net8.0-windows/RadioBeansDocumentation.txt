@@ -66,7 +66,7 @@
             Open a folder dialog and load selected files.
             </summary>
         </member>
-        <member name="M:RadioBeans.InitializeTracks.TrackInitialization(System.Windows.Forms.PictureBox)">
+        <member name="M:RadioBeans.InitializeTracks.TrackInitialization">
             <summary>
             Populate Track data with loaded file data.
             </summary>
@@ -102,7 +102,7 @@
             Stores various pieces of data that are used by the application. Data is loaded from a file on disk and stored in a Track. The application uses the data in the Track to play media, display meta-data, and sort and organize Tracks.
             </summary>
         </member>
-        <member name="F:RadioBeans.Track._trackpath">
+        <member name="F:RadioBeans.Track._trackfilepath">
             <summary>
             The file path reference.
             </summary>
@@ -132,39 +132,24 @@
             Image of any tracklist art assigned to the Track.
             </summary>
         </member>
-        <member name="P:RadioBeans.Track.GetTrackPath">
+        <member name="P:RadioBeans.Track.FilePath">
             <summary>
-            Gets the file path assigned to the Track in the form of a string.
+            File path stored of the Track.
             </summary>
         </member>
-        <member name="M:RadioBeans.Track.SetTrackPath(System.String)">
+        <member name="P:RadioBeans.Track.Name">
             <summary>
-            Sets or changes the file path assigned to the Track, takes a string.
+            Name of the Track.
             </summary>
         </member>
-        <member name="P:RadioBeans.Track.GetTrackName">
+        <member name="P:RadioBeans.Track.FileType">
             <summary>
-            Gets the file name that is assigned to the Track in the form of a string.
-            </summary>
-        </member>
-        <member name="M:RadioBeans.Track.SetTrackName(System.String)">
-            <summary>
-            Set or change the title assigned to the Track, takes a string. 
-            </summary>
-        </member>
-        <member name="P:RadioBeans.Track.GetTrackFileType">
-            <summary>
-            Gets the stored file type assigned to the Track in the form of a string.
-            </summary>
-        </member>
-        <member name="M:RadioBeans.Track.SetTrackFileType(System.String)">
-            <summary>
-            Set the title assigned to the Track, takes a string. Recommended to set this during Track initialization and not be changed afterwards.
+            File type of the Track.
             </summary>
         </member>
         <member name="P:RadioBeans.Track.ID">
             <summary>
-            The ID stored in the form of an int in the Track. 
+            Dynamic ID assigned to the Track to determine its position in the list.
             </summary>
         </member>
         <member name="P:RadioBeans.Track.CoverImage">

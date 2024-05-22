@@ -31,9 +31,7 @@
 			components = new System.ComponentModel.Container();
 			btnPlay = new Button();
 			btnStop = new Button();
-			cmbSongList = new ComboBox();
 			btnLoadFolder = new Button();
-			btnClearList = new Button();
 			tmr1Second = new System.Windows.Forms.Timer(components);
 			pbxCover = new PictureBox();
 			tbrVolume = new TrackBar();
@@ -43,8 +41,8 @@
 			btnSkipBack = new Button();
 			btnNextTrack = new Button();
 			btnPreviousTrack = new Button();
-			lblNya = new Label();
 			flpTrackSelection = new FlowLayoutPanel();
+			dbglblCurrentID = new Label();
 			((System.ComponentModel.ISupportInitialize)pbxCover).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrVolume).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrSeek).BeginInit();
@@ -53,60 +51,43 @@
 			// btnPlay
 			// 
 			btnPlay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnPlay.BackColor = SystemColors.ControlDark;
 			btnPlay.Location = new Point(174, 474);
 			btnPlay.Name = "btnPlay";
 			btnPlay.Size = new Size(100, 30);
 			btnPlay.TabIndex = 0;
 			btnPlay.Text = "Play";
-			btnPlay.UseVisualStyleBackColor = true;
+			btnPlay.UseVisualStyleBackColor = false;
 			btnPlay.Click += btnPlay_Click;
 			// 
 			// btnStop
 			// 
 			btnStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnStop.BackColor = SystemColors.ControlDark;
 			btnStop.Location = new Point(280, 474);
 			btnStop.Name = "btnStop";
 			btnStop.Size = new Size(100, 30);
 			btnStop.TabIndex = 1;
 			btnStop.Text = "Stop";
-			btnStop.UseVisualStyleBackColor = true;
+			btnStop.UseVisualStyleBackColor = false;
 			btnStop.Click += btnStop_Click;
-			// 
-			// cmbSongList
-			// 
-			cmbSongList.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			cmbSongList.FormattingEnabled = true;
-			cmbSongList.Location = new Point(118, 561);
-			cmbSongList.Name = "cmbSongList";
-			cmbSongList.Size = new Size(318, 23);
-			cmbSongList.TabIndex = 2;
-			cmbSongList.SelectedIndexChanged += cmbSongList_SelectedIndexChanged;
 			// 
 			// btnLoadFolder
 			// 
 			btnLoadFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnLoadFolder.BackColor = SystemColors.ControlDark;
 			btnLoadFolder.Location = new Point(12, 556);
 			btnLoadFolder.Name = "btnLoadFolder";
 			btnLoadFolder.Size = new Size(100, 30);
 			btnLoadFolder.TabIndex = 3;
 			btnLoadFolder.Text = "Load folder...";
-			btnLoadFolder.UseVisualStyleBackColor = true;
+			btnLoadFolder.UseVisualStyleBackColor = false;
 			btnLoadFolder.Click += btnLoadFolder_Click;
-			// 
-			// btnClearList
-			// 
-			btnClearList.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnClearList.Location = new Point(442, 556);
-			btnClearList.Name = "btnClearList";
-			btnClearList.Size = new Size(100, 30);
-			btnClearList.TabIndex = 4;
-			btnClearList.Text = "Clear list...";
-			btnClearList.UseVisualStyleBackColor = true;
-			btnClearList.Click += btnClearList_Click;
 			// 
 			// pbxCover
 			// 
 			pbxCover.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+			pbxCover.BackColor = SystemColors.ControlDark;
 			pbxCover.Location = new Point(12, 12);
 			pbxCover.Name = "pbxCover";
 			pbxCover.Size = new Size(530, 405);
@@ -118,6 +99,7 @@
 			// tbrVolume
 			// 
 			tbrVolume.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			tbrVolume.BackColor = SystemColors.ControlDarkDark;
 			tbrVolume.LargeChange = 0;
 			tbrVolume.Location = new Point(12, 423);
 			tbrVolume.Name = "tbrVolume";
@@ -129,6 +111,7 @@
 			// tbrSeek
 			// 
 			tbrSeek.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			tbrSeek.BackColor = SystemColors.ControlDarkDark;
 			tbrSeek.LargeChange = 1;
 			tbrSeek.Location = new Point(12, 510);
 			tbrSeek.Name = "tbrSeek";
@@ -150,59 +133,55 @@
 			// btnSkipForward
 			// 
 			btnSkipForward.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnSkipForward.BackColor = SystemColors.ControlDark;
 			btnSkipForward.Location = new Point(386, 474);
 			btnSkipForward.Name = "btnSkipForward";
 			btnSkipForward.Size = new Size(50, 30);
 			btnSkipForward.TabIndex = 16;
 			btnSkipForward.Text = ">";
-			btnSkipForward.UseVisualStyleBackColor = true;
+			btnSkipForward.UseVisualStyleBackColor = false;
 			btnSkipForward.Click += btnSkipForward_Click;
 			// 
 			// btnSkipBack
 			// 
 			btnSkipBack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnSkipBack.BackColor = SystemColors.ControlDark;
 			btnSkipBack.Location = new Point(118, 474);
 			btnSkipBack.Name = "btnSkipBack";
 			btnSkipBack.Size = new Size(50, 30);
 			btnSkipBack.TabIndex = 17;
 			btnSkipBack.Text = "<";
-			btnSkipBack.UseVisualStyleBackColor = true;
+			btnSkipBack.UseVisualStyleBackColor = false;
 			btnSkipBack.Click += btnSkipBack_Click;
 			// 
 			// btnNextTrack
 			// 
 			btnNextTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnNextTrack.BackColor = SystemColors.ControlDark;
 			btnNextTrack.Location = new Point(442, 474);
 			btnNextTrack.Name = "btnNextTrack";
 			btnNextTrack.Size = new Size(100, 30);
 			btnNextTrack.TabIndex = 21;
 			btnNextTrack.Text = ">>>";
-			btnNextTrack.UseVisualStyleBackColor = true;
+			btnNextTrack.UseVisualStyleBackColor = false;
 			btnNextTrack.Click += btnNextTrack_Click;
 			// 
 			// btnPreviousTrack
 			// 
 			btnPreviousTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnPreviousTrack.BackColor = SystemColors.ControlDark;
 			btnPreviousTrack.Location = new Point(12, 474);
 			btnPreviousTrack.Name = "btnPreviousTrack";
 			btnPreviousTrack.Size = new Size(100, 30);
 			btnPreviousTrack.TabIndex = 22;
 			btnPreviousTrack.Text = "<<<";
-			btnPreviousTrack.UseVisualStyleBackColor = true;
+			btnPreviousTrack.UseVisualStyleBackColor = false;
 			btnPreviousTrack.Click += btnPreviousTrack_Click;
-			// 
-			// lblNya
-			// 
-			lblNya.AutoSize = true;
-			lblNya.Location = new Point(548, 571);
-			lblNya.Name = "lblNya";
-			lblNya.Size = new Size(79, 15);
-			lblNya.TabIndex = 23;
-			lblNya.Text = "sadsadsadasd";
 			// 
 			// flpTrackSelection
 			// 
 			flpTrackSelection.AutoScroll = true;
+			flpTrackSelection.BackColor = SystemColors.ControlDark;
 			flpTrackSelection.FlowDirection = FlowDirection.TopDown;
 			flpTrackSelection.Location = new Point(548, 12);
 			flpTrackSelection.Name = "flpTrackSelection";
@@ -210,14 +189,23 @@
 			flpTrackSelection.TabIndex = 24;
 			flpTrackSelection.WrapContents = false;
 			// 
+			// dbglblCurrentID
+			// 
+			dbglblCurrentID.AutoSize = true;
+			dbglblCurrentID.Location = new Point(61, 48);
+			dbglblCurrentID.Name = "dbglblCurrentID";
+			dbglblCurrentID.Size = new Size(38, 15);
+			dbglblCurrentID.TabIndex = 25;
+			dbglblCurrentID.Text = "label1";
+			// 
 			// frmMain
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
 			ClientSize = new Size(923, 593);
+			Controls.Add(dbglblCurrentID);
 			Controls.Add(flpTrackSelection);
-			Controls.Add(lblNya);
 			Controls.Add(btnPreviousTrack);
 			Controls.Add(btnNextTrack);
 			Controls.Add(btnSkipBack);
@@ -225,9 +213,7 @@
 			Controls.Add(tbrSeek);
 			Controls.Add(tbrVolume);
 			Controls.Add(pbxCover);
-			Controls.Add(btnClearList);
 			Controls.Add(btnLoadFolder);
-			Controls.Add(cmbSongList);
 			Controls.Add(btnStop);
 			Controls.Add(btnPlay);
 			Controls.Add(btnPause);
@@ -244,9 +230,7 @@
 
 		private Button btnPlay;
 		private Button btnStop;
-		private ComboBox cmbSongList;
 		private Button btnLoadFolder;
-		private Button btnClearList;
 		private System.Windows.Forms.Timer tmr1Second;
 		private PictureBox pbxCover;
 		private TrackBar tbrVolume;
@@ -256,7 +240,7 @@
 		private Button btnSkipBack;
 		private Button btnNextTrack;
 		private Button btnPreviousTrack;
-		private Label lblNya;
 		private FlowLayoutPanel flpTrackSelection;
+		private Label dbglblCurrentID;
 	}
 }

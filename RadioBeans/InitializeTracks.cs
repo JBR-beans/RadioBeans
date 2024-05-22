@@ -4,8 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TagLib;
+using TagLib.Flac;
 using TagLib.Matroska;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using Picture = TagLib.Picture;
 
 namespace RadioBeans
 {
@@ -65,7 +68,7 @@ namespace RadioBeans
 		/// <summary>
 		/// Populate Track data with loaded file data.
 		/// </summary>
-		public void TrackInitialization(PictureBox pbx)
+		public void TrackInitialization()
 		{
 			_tracks = new Track[_totaltracks];
 
@@ -74,22 +77,38 @@ namespace RadioBeans
 				// open a taglib file that will get the info out of the file at the path
 				// we will populate the track object with this info 
 				// then we will dispose of the taglib file before we move on to the next file
+
 				var tfile = TagLib.File.Create(_filesinfolder[i]);
 				Track track = new Track();
-				track.SetTrackPath(_filesinfolder[i]);
-				track.SetTrackName(tfile.Tag.Title);
-				track.SetTrackFileType(Path.GetExtension(_filesinfolder[i]));
+				track.FilePath = _filesinfolder[i];
+				track.Name = tfile.Tag.Title;
+				track.FileType = Path.GetExtension(_filesinfolder[i]);
 				track.ID = i;
-				// || track.GetTrackName == "cover"
-				if (track.GetTrackFileType == ".png")
-				{
-					_coverimage = Image.FromFile(track.GetTrackPath);
 
-					if (pbx.Image == null)
-					{
-						MessageBox.Show("aaaa");
-					}
+				if (track.FilePath.ToLower().Contains("cover") && track.FilePath.ToLower().Contains(".png"))
+				{
+					_coverimage = Image.FromFile(track.FilePath);
+					_totaltracks--;
 				}
+				if (track.FilePath.ToLower().Contains("tracklist") && track.FilePath.ToLower().Contains(".png"))
+				{
+					_tracklistimage = Image.FromFile(track.FilePath);
+					_totaltracks--;
+				}
+				if (tfile.Tag.Pictures != null && tfile.Tag.Pictures.Length != 0)
+				{
+					var bin = (byte[])(tfile.Tag.Pictures[0].Data.Data);
+					_coverimage = Image.FromStream(new MemoryStream(bin));
+				}
+
+				/*if ((track.Name == "cover" || track.Name == "Cover") && track.Name == ".png")
+				{
+					_coverimage = Image.FromFile(track.FilePath);
+				}
+				if ((track.Name == "tracklist" || track.FilePath == "Tracklist") && track.FileType == ".png")
+				{
+					_tracklistimage = Image.FromFile(track.FilePath);
+				}*/
 
 				_tracks[i] = track;
 				
@@ -98,14 +117,21 @@ namespace RadioBeans
 
 			for (int i = 0; i < _tracks.Length; i++)
 			{
+				if (_tracks[i] == null)
+				{
+					continue;
+				}
+
 				if (_coverimage != null)
 				{
 					_tracks[i].CoverImage = _coverimage;
-					if (_tracks[i].CoverImage == null)
-					{
-						MessageBox.Show("aaaa");
-					}
 				}
+
+				if (_tracklistimage != null)
+				{
+					_tracks[i].TracklistImage = _tracklistimage;
+				}
+				
 			}
 		}
 
@@ -114,13 +140,9 @@ namespace RadioBeans
 		/// </summary>=
 		public void LoadTracks(Track[] tracks)
 		{
-			for (int i = 0; i<tracks.Length; i++)
+			for (int i = 0; i < tracks.Length; i++)
 			{
 				tracks[i] = _tracks[i];
-				if (tracks[i].CoverImage == null)
-				{
-					MessageBox.Show("aaaa");
-				}
 			}
 		}
 		public int GetTrackCount() { return _totaltracks; }

@@ -18,7 +18,7 @@ namespace RadioBeans
 		/// <summary>
 		/// The file path reference.
 		/// </summary>
-		private string _trackpath;
+		private string _trackfilepath;
 
 		/// <summary>
 		/// Title found in file data. Possibility of null.
@@ -46,48 +46,35 @@ namespace RadioBeans
 		private Image _tracklistimage;
 
 		/// <summary>
-		/// Gets the file path assigned to the Track in the form of a string.
+		/// File path stored of the Track.
 		/// </summary>
-		public string GetTrackPath { get { return _trackpath; } }
-
-		/// <summary>
-		/// Sets or changes the file path assigned to the Track, takes a string.
-		/// </summary>
-		public void SetTrackPath(string trackPath) { _trackpath = trackPath; }
-
-		/// <summary>
-		/// Gets the file name that is assigned to the Track in the form of a string.
-		/// </summary>
-		public string GetTrackName
+		public string FilePath
 		{
-			get
-			{
-				if (_trackname != null)
-				{ return _trackname; }
-				return "no name";
-			}
+			get => _trackfilepath;
+			set => _trackfilepath = value;
+		}
+		/// <summary>
+		/// Name of the Track.
+		/// </summary>
+		public string Name
+		{
+			get => _trackname;
+			set => _trackname = value;
 		}
 
 		/// <summary>
-		/// Set or change the title assigned to the Track, takes a string. 
+		/// File type of the Track.
 		/// </summary>
-		public void SetTrackName(string trackName) { _trackname = trackName; }
+		public string FileType
+		{
+			get => _trackfiletype;
+			set => _trackfiletype = value;
+		}
 
 		/// <summary>
-		/// Gets the stored file type assigned to the Track in the form of a string.
+		/// Dynamic ID assigned to the Track to determine its position in the list.
 		/// </summary>
-		public string GetTrackFileType { get { return _trackfiletype; } }
-
-		/// <summary>
-		/// Set the title assigned to the Track, takes a string. Recommended to set this during Track initialization and not be changed afterwards.
-		/// </summary>
-		public void SetTrackFileType(string trackFileType) { _trackfiletype = trackFileType; }
-
-
-		/// <summary>
-		/// The ID stored in the form of an int in the Track. 
-		/// </summary>
-		public new int ID
+		public int ID
 		{
 			get => _trackid;
 			set => _trackid = value;
@@ -96,7 +83,7 @@ namespace RadioBeans
 		/// <summary>
 		/// Cover art stored as an Image in the Track.
 		/// </summary>
-		public new Image CoverImage
+		public Image CoverImage
 		{
 			get => _coverimage;
 			set => _coverimage = value;
@@ -105,7 +92,7 @@ namespace RadioBeans
 		/// <summary>
 		/// Tracklist art stored as an Image in the Track.
 		/// </summary>
-		public new Image TracklistImage
+		public Image TracklistImage
 		{
 			get => _tracklistimage;
 			set => _tracklistimage = value;

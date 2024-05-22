@@ -41,11 +41,6 @@ namespace RadioBeans
 				outputDevice.Volume = tbrVolume.Value * .01f;
 			}
 		}
-		
-		private void btnClearList_Click(object sender, EventArgs e)
-		{
-			cmbSongList.Items.Clear();
-		}
 		private void btnPlay_Click(object sender, EventArgs e)
 		{
 			StartPlaying();
@@ -64,11 +59,7 @@ namespace RadioBeans
 			InitializeTracks initializeTracks = new InitializeTracks();
 
 			initializeTracks.LoadFolder();
-			initializeTracks.TrackInitialization(pbxCover);
-			if (pbxCover.Image == null)
-			{
-				MessageBox.Show("uwu");
-			}
+			initializeTracks.TrackInitialization();
 
 			Tracks = new Track[initializeTracks.GetTrackCount()];
 
@@ -76,52 +67,27 @@ namespace RadioBeans
 
 			for (int i = 0; i < initializeTracks.GetTrackCount(); i++)
 			{
+
 				TrackEntry entry = new TrackEntry();
 
-				if (Tracks[i].CoverImage != null)
-				{
-					entry.Image = Tracks[i].CoverImage;
-				}
-
-				entry.Text = Tracks[i].GetTrackName;
+				entry.Image = Tracks[i].CoverImage;
+				entry.Text = Tracks[i].Name;
 				entry.TrackID = Tracks[i].ID;
 				entry.Track = Tracks[i];
 
-				if (Tracks[i] == null)
-				{
-					MessageBox.Show("Track failed to initialize");
-					break;
-				}
-
-				/*if (Tracks[i].GetCoverImage() == null)
-				{
-					MessageBox.Show("Track image failed to initialize");
-					break;
-				}*/
-				/*if (entry.Image == null)
-				{
-					MessageBox.Show("Image failed to display");
-					break;
-				}*/
 				entry.Click += (sender, e) =>
 				{
 					currentlyPlayingTrack = entry.Track;
-					if (currentlyPlayingTrack.CoverImage != null)
-					{
-						currentImage = currentlyPlayingTrack.CoverImage;
-						pbxCover.Image = currentImage;
-					}
-					if (currentlyPlayingTrack.CoverImage == null)
-					{
-						MessageBox.Show("Failed to display image");
-					}
+					pbxCover.Image = entry.Image;
 
+					dbglblCurrentID.Text = currentlyPlayingTrack.ID.ToString();
 
 					StopPlaying();
 					StartPlaying();
-
 				};
+
 				flpTrackSelection.Controls.Add(entry);
+				
 			}
 		}
 
@@ -139,7 +105,7 @@ namespace RadioBeans
 			if (audioFile == null)
 			{
 				// just needs a file path
-				audioFile = new AudioFileReader(currentlyPlayingTrack.GetTrackPath);
+				audioFile = new AudioFileReader(currentlyPlayingTrack.FilePath);
 
 				outputDevice.Init(audioFile);
 				tbrSeek.Maximum = (int)audioFile.Length;
@@ -207,6 +173,7 @@ namespace RadioBeans
 				StartPlaying();
 			}
 			StartPlaying();
+			dbglblCurrentID.Text = currentlyPlayingTrack.ID.ToString();
 		}
 		private void tbrSeek_Scroll(object sender, EventArgs e)
 		{
@@ -264,18 +231,20 @@ namespace RadioBeans
 
 		private void btnNextTrack_Click(object sender, EventArgs e)
 		{
-			if (cmbSongList.SelectedIndex < cmbSongList.Items.Count - 1)
+			if (currentlyPlayingTrack.ID < Tracks.Length)
 			{
-				cmbSongList.SelectedIndex = cmbSongList.SelectedIndex + 1;
+				currentlyPlayingTrack = Tracks[currentlyPlayingTrack.ID + 1];
+				pbxCover.Image = currentlyPlayingTrack.CoverImage;
 				SongChanged();
 			}
 		}
 
 		private void btnPreviousTrack_Click(object sender, EventArgs e)
 		{
-			if (cmbSongList.SelectedIndex > 0)
+			if (currentlyPlayingTrack.ID > 0)
 			{
-				cmbSongList.SelectedIndex = cmbSongList.SelectedIndex - 1;
+				currentlyPlayingTrack = Tracks[currentlyPlayingTrack.ID - 1];
+				pbxCover.Image = currentlyPlayingTrack.CoverImage;
 				SongChanged();
 			}
 		}
