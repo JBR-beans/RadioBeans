@@ -24,7 +24,7 @@ namespace RadioBeans
 		{
 			InitializeComponent();
 			FormLoad();
-		}
+		} 
 		public void FormLoad()
 		{
 			tbrVolume.Maximum = 100;
@@ -40,6 +40,7 @@ namespace RadioBeans
 				outputDevice = new WaveOutEvent();
 				outputDevice.Volume = tbrVolume.Value * .01f;
 			}
+			LoadTrackEntries();
 		}
 		private void btnPlay_Click(object sender, EventArgs e)
 		{
@@ -54,42 +55,6 @@ namespace RadioBeans
 			PausePlaying();
 		}
 
-		private void btnLoadFolder_Click(object sender, EventArgs e)
-		{
-			InitializeTracks initializeTracks = new InitializeTracks();
-
-			initializeTracks.LoadFolder();
-			initializeTracks.TrackInitialization();
-
-			Tracks = new Track[initializeTracks.GetTrackCount()];
-
-			initializeTracks.LoadTracks(Tracks);
-
-			for (int i = 0; i < initializeTracks.GetTrackCount(); i++)
-			{
-
-				TrackEntry entry = new TrackEntry();
-
-				entry.Image = Tracks[i].CoverImage;
-				entry.Text = Tracks[i].Name;
-				entry.TrackID = Tracks[i].ID;
-				entry.Track = Tracks[i];
-
-				entry.Click += (sender, e) =>
-				{
-					currentlyPlayingTrack = entry.Track;
-					pbxCover.Image = entry.Image;
-
-					dbglblCurrentID.Text = currentlyPlayingTrack.ID.ToString();
-
-					StopPlaying();
-					StartPlaying();
-				};
-
-				flpTrackSelection.Controls.Add(entry);
-				
-			}
-		}
 
 		public void TrackEntry_Click(object sender, EventArgs e)
 		{
@@ -104,7 +69,6 @@ namespace RadioBeans
 			}
 			if (audioFile == null)
 			{
-				// just needs a file path
 				audioFile = new AudioFileReader(currentlyPlayingTrack.FilePath);
 
 				outputDevice.Init(audioFile);
@@ -252,6 +216,51 @@ namespace RadioBeans
 		private void pbxCover_Click(object sender, EventArgs e)
 		{
 			changePicture = !changePicture;
+		}
+
+		private void tlsLoadFolder_Click(object sender, EventArgs e)
+		{
+			LoadTrackEntries();
+		}
+		public void LoadTrackEntries()
+		{
+			InitializeTracks initializeTracks = new InitializeTracks();
+
+			initializeTracks.LoadFolder();
+			initializeTracks.TrackInitialization();
+
+			Tracks = new Track[initializeTracks.GetTrackCount()];
+
+			initializeTracks.LoadInitializedTracks(Tracks);
+
+			for (int i = 0; i < initializeTracks.GetTrackCount(); i++)
+			{
+				if (Tracks[i] != null)
+				{
+					TrackEntry entry = new TrackEntry();
+					if (Tracks[i].CoverImage != null)
+					{
+						entry.Image = Tracks[i].CoverImage;
+					}
+
+					entry.Text = Tracks[i].Name;
+					entry.TrackID = Tracks[i].ID;
+					entry.Track = Tracks[i];
+
+					entry.Click += (sender, e) =>
+					{
+						currentlyPlayingTrack = entry.Track;
+						pbxCover.Image = entry.Image;
+
+						dbglblCurrentID.Text = currentlyPlayingTrack.ID.ToString();
+
+						StopPlaying();
+						StartPlaying();
+					};
+
+					flpTrackSelection.Controls.Add(entry);
+				}
+			}
 		}
 	}
 }

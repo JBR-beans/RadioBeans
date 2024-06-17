@@ -31,7 +31,7 @@
             Array of Tracks to be loaded into the application.
             </summary>
         </member>
-        <member name="F:RadioBeans.InitializeTracks._totaltracks">
+        <member name="F:RadioBeans.InitializeTracks._totalfilesinfolder">
             <summary>
             Total files loaded into Tracks. 
             </summary>
@@ -68,12 +68,12 @@
         </member>
         <member name="M:RadioBeans.InitializeTracks.TrackInitialization">
             <summary>
-            Populate Track data with loaded file data.
+            Populate Track data from loaded files.
             </summary>
         </member>
-        <member name="M:RadioBeans.InitializeTracks.LoadTracks(RadioBeans.Track[])">
+        <member name="M:RadioBeans.InitializeTracks.LoadInitializedTracks(RadioBeans.Track[])">
             <summary>
-            Load initialized Tracks to be used by the application.
+            Load initialized Tracks from a folder to be used by the application.
             </summary>=
         </member>
         <member name="M:RadioBeans.Program.Main">

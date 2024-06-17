@@ -31,7 +31,6 @@
 			components = new System.ComponentModel.Container();
 			btnPlay = new Button();
 			btnStop = new Button();
-			btnLoadFolder = new Button();
 			tmr1Second = new System.Windows.Forms.Timer(components);
 			pbxCover = new PictureBox();
 			tbrVolume = new TrackBar();
@@ -43,18 +42,22 @@
 			btnPreviousTrack = new Button();
 			flpTrackSelection = new FlowLayoutPanel();
 			dbglblCurrentID = new Label();
+			menuStrip1 = new MenuStrip();
+			tlsFile = new ToolStripMenuItem();
+			tlsLoadFolder = new ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)pbxCover).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrVolume).BeginInit();
 			((System.ComponentModel.ISupportInitialize)tbrSeek).BeginInit();
+			menuStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// btnPlay
 			// 
-			btnPlay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnPlay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btnPlay.BackColor = SystemColors.ControlDark;
-			btnPlay.Location = new Point(174, 474);
+			btnPlay.Location = new Point(585, 503);
 			btnPlay.Name = "btnPlay";
-			btnPlay.Size = new Size(100, 30);
+			btnPlay.Size = new Size(50, 30);
 			btnPlay.TabIndex = 0;
 			btnPlay.Text = "Play";
 			btnPlay.UseVisualStyleBackColor = false;
@@ -62,35 +65,23 @@
 			// 
 			// btnStop
 			// 
-			btnStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnStop.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btnStop.BackColor = SystemColors.ControlDark;
-			btnStop.Location = new Point(280, 474);
+			btnStop.Location = new Point(641, 503);
 			btnStop.Name = "btnStop";
-			btnStop.Size = new Size(100, 30);
+			btnStop.Size = new Size(50, 30);
 			btnStop.TabIndex = 1;
 			btnStop.Text = "Stop";
 			btnStop.UseVisualStyleBackColor = false;
 			btnStop.Click += btnStop_Click;
 			// 
-			// btnLoadFolder
-			// 
-			btnLoadFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnLoadFolder.BackColor = SystemColors.ControlDark;
-			btnLoadFolder.Location = new Point(12, 556);
-			btnLoadFolder.Name = "btnLoadFolder";
-			btnLoadFolder.Size = new Size(100, 30);
-			btnLoadFolder.TabIndex = 3;
-			btnLoadFolder.Text = "Load folder...";
-			btnLoadFolder.UseVisualStyleBackColor = false;
-			btnLoadFolder.Click += btnLoadFolder_Click;
-			// 
 			// pbxCover
 			// 
-			pbxCover.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+			pbxCover.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			pbxCover.BackColor = SystemColors.ControlDark;
-			pbxCover.Location = new Point(12, 12);
+			pbxCover.Location = new Point(7, 28);
 			pbxCover.Name = "pbxCover";
-			pbxCover.Size = new Size(530, 405);
+			pbxCover.Size = new Size(441, 378);
 			pbxCover.SizeMode = PictureBoxSizeMode.Zoom;
 			pbxCover.TabIndex = 8;
 			pbxCover.TabStop = false;
@@ -98,33 +89,33 @@
 			// 
 			// tbrVolume
 			// 
-			tbrVolume.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			tbrVolume.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			tbrVolume.BackColor = SystemColors.ControlDarkDark;
 			tbrVolume.LargeChange = 0;
-			tbrVolume.Location = new Point(12, 423);
+			tbrVolume.Location = new Point(7, 503);
 			tbrVolume.Name = "tbrVolume";
-			tbrVolume.Size = new Size(530, 45);
+			tbrVolume.Size = new Size(368, 45);
 			tbrVolume.TabIndex = 11;
 			tbrVolume.TickStyle = TickStyle.None;
 			tbrVolume.Scroll += tbrVolume_Scroll;
 			// 
 			// tbrSeek
 			// 
-			tbrSeek.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			tbrSeek.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			tbrSeek.BackColor = SystemColors.ControlDarkDark;
 			tbrSeek.LargeChange = 1;
-			tbrSeek.Location = new Point(12, 510);
+			tbrSeek.Location = new Point(7, 554);
 			tbrSeek.Name = "tbrSeek";
-			tbrSeek.Size = new Size(530, 45);
+			tbrSeek.Size = new Size(815, 45);
 			tbrSeek.TabIndex = 12;
 			tbrSeek.Scroll += tbrSeek_Scroll;
 			// 
 			// btnPause
 			// 
-			btnPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			btnPause.Location = new Point(174, 474);
+			btnPause.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnPause.Location = new Point(585, 503);
 			btnPause.Name = "btnPause";
-			btnPause.Size = new Size(100, 30);
+			btnPause.Size = new Size(50, 30);
 			btnPause.TabIndex = 14;
 			btnPause.Text = "Pause";
 			btnPause.UseVisualStyleBackColor = true;
@@ -132,9 +123,9 @@
 			// 
 			// btnSkipForward
 			// 
-			btnSkipForward.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnSkipForward.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btnSkipForward.BackColor = SystemColors.ControlDark;
-			btnSkipForward.Location = new Point(386, 474);
+			btnSkipForward.Location = new Point(697, 503);
 			btnSkipForward.Name = "btnSkipForward";
 			btnSkipForward.Size = new Size(50, 30);
 			btnSkipForward.TabIndex = 16;
@@ -144,9 +135,9 @@
 			// 
 			// btnSkipBack
 			// 
-			btnSkipBack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnSkipBack.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btnSkipBack.BackColor = SystemColors.ControlDark;
-			btnSkipBack.Location = new Point(118, 474);
+			btnSkipBack.Location = new Point(529, 503);
 			btnSkipBack.Name = "btnSkipBack";
 			btnSkipBack.Size = new Size(50, 30);
 			btnSkipBack.TabIndex = 17;
@@ -156,11 +147,11 @@
 			// 
 			// btnNextTrack
 			// 
-			btnNextTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnNextTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btnNextTrack.BackColor = SystemColors.ControlDark;
-			btnNextTrack.Location = new Point(442, 474);
+			btnNextTrack.Location = new Point(753, 503);
 			btnNextTrack.Name = "btnNextTrack";
-			btnNextTrack.Size = new Size(100, 30);
+			btnNextTrack.Size = new Size(50, 30);
 			btnNextTrack.TabIndex = 21;
 			btnNextTrack.Text = ">>>";
 			btnNextTrack.UseVisualStyleBackColor = false;
@@ -168,11 +159,11 @@
 			// 
 			// btnPreviousTrack
 			// 
-			btnPreviousTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnPreviousTrack.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btnPreviousTrack.BackColor = SystemColors.ControlDark;
-			btnPreviousTrack.Location = new Point(12, 474);
+			btnPreviousTrack.Location = new Point(473, 503);
 			btnPreviousTrack.Name = "btnPreviousTrack";
-			btnPreviousTrack.Size = new Size(100, 30);
+			btnPreviousTrack.Size = new Size(50, 30);
 			btnPreviousTrack.TabIndex = 22;
 			btnPreviousTrack.Text = "<<<";
 			btnPreviousTrack.UseVisualStyleBackColor = false;
@@ -180,30 +171,54 @@
 			// 
 			// flpTrackSelection
 			// 
+			flpTrackSelection.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
 			flpTrackSelection.AutoScroll = true;
 			flpTrackSelection.BackColor = SystemColors.ControlDark;
 			flpTrackSelection.FlowDirection = FlowDirection.TopDown;
-			flpTrackSelection.Location = new Point(548, 12);
+			flpTrackSelection.Location = new Point(454, 28);
 			flpTrackSelection.Name = "flpTrackSelection";
-			flpTrackSelection.Size = new Size(363, 543);
+			flpTrackSelection.Size = new Size(368, 469);
 			flpTrackSelection.TabIndex = 24;
 			flpTrackSelection.WrapContents = false;
 			// 
 			// dbglblCurrentID
 			// 
 			dbglblCurrentID.AutoSize = true;
-			dbglblCurrentID.Location = new Point(61, 48);
+			dbglblCurrentID.Location = new Point(12, 409);
 			dbglblCurrentID.Name = "dbglblCurrentID";
 			dbglblCurrentID.Size = new Size(38, 15);
 			dbglblCurrentID.TabIndex = 25;
 			dbglblCurrentID.Text = "label1";
+			// 
+			// menuStrip1
+			// 
+			menuStrip1.Items.AddRange(new ToolStripItem[] { tlsFile });
+			menuStrip1.Location = new Point(0, 0);
+			menuStrip1.Name = "menuStrip1";
+			menuStrip1.Size = new Size(834, 24);
+			menuStrip1.TabIndex = 26;
+			menuStrip1.Text = "menuStrip1";
+			// 
+			// tlsFile
+			// 
+			tlsFile.DropDownItems.AddRange(new ToolStripItem[] { tlsLoadFolder });
+			tlsFile.Name = "tlsFile";
+			tlsFile.Size = new Size(37, 20);
+			tlsFile.Text = "File";
+			// 
+			// tlsLoadFolder
+			// 
+			tlsLoadFolder.Name = "tlsLoadFolder";
+			tlsLoadFolder.Size = new Size(180, 22);
+			tlsLoadFolder.Text = "Reload folder...";
+			tlsLoadFolder.Click += tlsLoadFolder_Click;
 			// 
 			// frmMain
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = SystemColors.Control;
-			ClientSize = new Size(923, 593);
+			ClientSize = new Size(834, 611);
 			Controls.Add(dbglblCurrentID);
 			Controls.Add(flpTrackSelection);
 			Controls.Add(btnPreviousTrack);
@@ -213,15 +228,19 @@
 			Controls.Add(tbrSeek);
 			Controls.Add(tbrVolume);
 			Controls.Add(pbxCover);
-			Controls.Add(btnLoadFolder);
 			Controls.Add(btnStop);
 			Controls.Add(btnPlay);
 			Controls.Add(btnPause);
+			Controls.Add(menuStrip1);
+			MainMenuStrip = menuStrip1;
+			MinimumSize = new Size(850, 650);
 			Name = "frmMain";
 			Text = "Radio Beans";
 			((System.ComponentModel.ISupportInitialize)pbxCover).EndInit();
 			((System.ComponentModel.ISupportInitialize)tbrVolume).EndInit();
 			((System.ComponentModel.ISupportInitialize)tbrSeek).EndInit();
+			menuStrip1.ResumeLayout(false);
+			menuStrip1.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -230,7 +249,6 @@
 
 		private Button btnPlay;
 		private Button btnStop;
-		private Button btnLoadFolder;
 		private System.Windows.Forms.Timer tmr1Second;
 		private PictureBox pbxCover;
 		private TrackBar tbrVolume;
@@ -242,5 +260,8 @@
 		private Button btnPreviousTrack;
 		private FlowLayoutPanel flpTrackSelection;
 		private Label dbglblCurrentID;
+		private MenuStrip menuStrip1;
+		private ToolStripMenuItem tlsFile;
+		private ToolStripMenuItem tlsLoadFolder;
 	}
 }
