@@ -137,7 +137,6 @@ namespace RadioBeans
 				StartPlaying();
 			}
 			StartPlaying();
-			dbglblCurrentID.Text = currentlyPlayingTrack.ID.ToString();
 		}
 		private void tbrSeek_Scroll(object sender, EventArgs e)
 		{
@@ -208,7 +207,9 @@ namespace RadioBeans
 			if (currentlyPlayingTrack.ID > 0)
 			{
 				currentlyPlayingTrack = Tracks[currentlyPlayingTrack.ID - 1];
-				pbxCover.Image = currentlyPlayingTrack.CoverImage;
+
+				//pbxCover.Image = currentlyPlayingTrack.CoverImage;
+
 				SongChanged();
 			}
 		}
@@ -224,6 +225,7 @@ namespace RadioBeans
 		}
 		public void LoadTrackEntries()
 		{
+			flpTrackSelection.Controls.Clear();
 			InitializeTracks initializeTracks = new InitializeTracks();
 
 			initializeTracks.LoadFolder();
@@ -235,14 +237,29 @@ namespace RadioBeans
 
 			for (int i = 0; i < initializeTracks.GetTrackCount(); i++)
 			{
+				if (Tracks[i] == null)
+				{
+					continue;
+				}
 				if (Tracks[i] != null)
 				{
 					TrackEntry entry = new TrackEntry();
-					if (Tracks[i].CoverImage != null)
+
+					// need to work on getting images
+					/*if (Tracks[i].CoverImage != null)
 					{
 						entry.Image = Tracks[i].CoverImage;
-					}
+					}*/
 
+					// placeholder
+
+					entry.Image = pbxCover.BackgroundImage;
+
+					if (string.IsNullOrEmpty(Tracks[i].Name))
+					{
+						string tempName = Tracks[i].FilePath.Split('\\').Last();
+						Tracks[i].Name = tempName;
+					}
 					entry.Text = Tracks[i].Name;
 					entry.TrackID = Tracks[i].ID;
 					entry.Track = Tracks[i];
@@ -250,9 +267,9 @@ namespace RadioBeans
 					entry.Click += (sender, e) =>
 					{
 						currentlyPlayingTrack = entry.Track;
-						pbxCover.Image = entry.Image;
 
-						dbglblCurrentID.Text = currentlyPlayingTrack.ID.ToString();
+						//pbxCover.Image = entry.Image;
+
 
 						StopPlaying();
 						StartPlaying();
@@ -260,6 +277,7 @@ namespace RadioBeans
 
 					flpTrackSelection.Controls.Add(entry);
 				}
+
 			}
 		}
 	}

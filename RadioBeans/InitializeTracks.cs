@@ -69,10 +69,10 @@ namespace RadioBeans
 				_filesinfolder = Directory.GetFiles(fbd.SelectedPath);
 				_totalfilesinfolder = _filesinfolder.Length;
 			}*/
+
 			//string[] files = new string[Environment.GetFolderPath(Environment.SpecialFolder.MyMusic).Length];
 
 			// loading MyMusic windows library folder by default
-
 			string[] files = GetMusicLibraryFiles();
 			if (files != null )
 			{
@@ -100,7 +100,7 @@ namespace RadioBeans
 				{
 					if (Path.GetFileName(file).Equals("desktop.ini", StringComparison.OrdinalIgnoreCase) || Path.GetFileName(file).Contains(".meta") || Path.GetFileName(file).Contains(".ogg"))
 					{
-						continue; // Skip desktop.ini
+						continue; // edge cases
 					}
 					files.Add(file);
 				}
@@ -136,7 +136,8 @@ namespace RadioBeans
 				track.FileType = Path.GetExtension(_filesinfolder[i]);
 				track.ID = i;
 
-				if (track.FilePath.ToLower().Contains("cover") && track.FilePath.ToLower().Contains(".png"))
+				// using placeholder image for now
+				/*if (track.FilePath.ToLower().Contains("cover") && track.FilePath.ToLower().Contains(".png"))
 				{
 					_coverimage = Image.FromFile(track.FilePath);
 					_totalfilesinfolder--;
@@ -150,14 +151,15 @@ namespace RadioBeans
 				{
 					var bin = (byte[])(tfile.Tag.Pictures[0].Data.Data);
 					_coverimage = Image.FromStream(new MemoryStream(bin));
-				}
+				}*/
 
 				_tracks[i] = track;
 				
 				tfile.Dispose();
 			}
 
-			for (int i = 0; i < _tracks.Length; i++)
+			// using placeholder image for now
+			/*for (int i = 0; i < _tracks.Length; i++)
 			{
 				if (_tracks[i] == null)
 				{
@@ -174,7 +176,7 @@ namespace RadioBeans
 					_tracks[i].TracklistImage = _tracklistimage;
 				}
 				
-			}
+			}*/
 		}
 
 		/// <summary>

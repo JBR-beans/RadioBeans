@@ -33,7 +33,7 @@ namespace RadioBeans
 		/// <summary>
 		/// Optional, ID assigned to this Track.
 		/// </summary>
-		private int _trackid;
+		private int _trackid = 0;
 
 		/// <summary>
 		/// Image of any cover art assigned to the Track.
